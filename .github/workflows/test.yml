@@ -26,11 +26,11 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        working-directory: ./app
+        working-directory: ./api_server/app
         run: npm install
 
       - name: Run E2E tests
-        working-directory: ./app
+        working-directory: ./api_server/app
         env:
           IS_CI: true
         run: |
