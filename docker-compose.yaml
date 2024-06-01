@@ -22,3 +22,18 @@ services:
     volumes:
       - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./mysql:/var/lib/mysql
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend/src:/app
+      # - ./api_server/app/swagger:/frontend/swagger
+      # - /tmp/.X11-unix:/tmp/.X11-unix
+    ports:
+      - 3001:3000
+    environment:
+      - DISPLAY=0
+      - WATCHPACK_POLLING=true
+    restart: always
+    tty: true
+    stdin_open: true
