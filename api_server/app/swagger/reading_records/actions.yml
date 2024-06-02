@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: Reading Records Controller Schema
+  version: 1.0.0
+
+paths:
+  /readingRecords:
+    post:
+      operationId: createReadingRecords
+      description: 読書記録の作成
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReadingRecordDto'
+      responses:
+        '201':
+          description: 読書記録の作成成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateReadingRecordResponseDto'
+        '400':
+          $ref: '../errors.yml#responses/400'
+        '401':
+          $ref: '../errors.yml#responses/401'
+    get:
+      operationId: fetchAllReadingRecords
+      description: 読書記録の一覧取得
+      parameters: []
+      responses:
+        '200':
+          description: 読書記録の一覧取得成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FetchAllReadingRecordResponseDto'
+        '400':
+          $ref: '../errors.yml#responses/400'
+        '401':
+          $ref: '../errors.yml#responses/401'
+        '404':
+          $ref: '../errors.yml#responses/404'
+
+components:
+  schemas:
+    ReadingRecordDto:
+      $ref: './components/reading_record.dto.yml'
+    CreateReadingRecordDto:
+      $ref: './components/create_reading_record.dto.yml'
+    CreateReadingRecordResponseDto:
+      $ref: './components/create_reading_record_response.dto.yml'
+    FetchAllReadingRecordResponseDto:
+      $ref: './components/fetch_all_reading_record_response.dto.yml'

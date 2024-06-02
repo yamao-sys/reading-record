@@ -27,7 +27,7 @@ services:
       context: ./frontend
     volumes:
       - ./frontend/src:/app
-      # - ./api_server/app/swagger:/frontend/swagger
+      - ./api_server/app/swagger:/app/swagger
       # - /tmp/.X11-unix:/tmp/.X11-unix
     ports:
       - 3001:3000
