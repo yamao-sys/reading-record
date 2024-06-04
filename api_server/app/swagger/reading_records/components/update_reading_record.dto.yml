@@ -1,0 +1,15 @@
+description: 読書記録更新のrequest DTO
+type: object
+properties:
+  title:
+    type: string
+  learnedContent:
+    type: string
+    nullable: true
+  impression:
+    type: string
+    nullable: true
+required:
+  - title
+  - learnedContent
+  - impression

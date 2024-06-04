@@ -1,0 +1,22 @@
+description: 読書記録のDTO
+type: object
+properties:
+  id:
+    type: string
+  title:
+    type: string
+  learnedContent:
+    type: string
+    nullable: true
+  impression:
+    type: string
+    nullable: true
+  createdAt:
+    type: string
+    format: date
+required:
+  - id
+  - title
+  - learnedContent
+  - impression
+  - createdAt
