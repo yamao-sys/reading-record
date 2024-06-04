@@ -29,7 +29,7 @@ components:
         message:
           type: array
           items:
-            description: TODO取得時のレスポンスのDTO
+            description: バリデーションエラーのレスポンスのDTO
             type: string
         error:
           type: string

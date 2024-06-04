@@ -1,13 +1,12 @@
-import { getReadingRecordApiClient } from './_actions/getReadingRecordApiClient'
+import { getReadingRecordApiClient } from './_actions/getReadingRecordApiClient';
+import ReadingRecordsTemplate from './_components/templates/ReadingRecordsTemplate';
 
 export default async function ReadingRecords() {
-  const readingRecords = await getReadingRecordApiClient().readingRecords.$get()
+  const readingRecords = await getReadingRecordApiClient().readingRecords.$get();
+
   return (
     <>
-      {!!readingRecords.length &&
-        readingRecords.map((readingRecord) => (
-          <div key={readingRecord.title}>{readingRecord.title}</div>
-        ))}
+      <ReadingRecordsTemplate readingRecords={readingRecords} />
     </>
-  )
+  );
 }

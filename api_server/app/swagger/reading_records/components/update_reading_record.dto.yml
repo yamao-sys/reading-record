@@ -1,8 +1,6 @@
-description: 読書記録のDTO
+description: 読書記録更新のrequest DTO
 type: object
 properties:
-  id:
-    type: string
   title:
     type: string
   learnedContent:
@@ -11,12 +9,7 @@ properties:
   impression:
     type: string
     nullable: true
-  createdAt:
-    type: string
-    format: date
 required:
-  - id
   - title
   - learnedContent
   - impression
-  - createdAt
