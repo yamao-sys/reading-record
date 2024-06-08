@@ -1,0 +1,8 @@
+substitutions:
+  _IMAGE: 'api-server-prod/latest'
+  _REGION: 'asia-northeast1'
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', '$_REGION-docker.pkg.dev/${PROJECT_ID}/$_IMAGE', '-f', './deploy.Dockerfile', '.' ]
+images:
+- 'asia-northeast1-docker.pkg.dev/reading-record-425713/api-server-prod/latest:latest'

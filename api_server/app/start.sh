@@ -1,2 +1,3 @@
-npm run prisma migrate deploy
-npm start:prod
+npx prisma generate
+npx prisma migrate deploy
+npm run start:prod
