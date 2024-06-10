@@ -36,3 +36,24 @@ npx prisma migrate dev
 ```
 npx prisma migrate dev --preview-feature
 ```
+
+backendのbuild・deploy
+```
+◆ build
+gcloud builds submit --config ./api_server/cloudbuild-api-server-prod.yaml ./api_server/
+
+◆ deploy
+gcloud run deploy reading-record --image asia-northeast1-docker.pkg.dev/reading-record-425713/api-server-prod/latest --project reading-record-425713 --platform=managed --region asia-northeast1 --allow-unauthenticated --add-cloudsql-instances reading-record-425713:asia-northeast1:reading-record-production  --set-env-vars="DATABASE_URL=mysql://root:fipbz8ys@localhost:3306/reading_record_prod?socket=/cloudsql/reading-record-425713:asia-northeast1:reading-record-production"
+```
+Backend URL: https://reading-record-gsczae4q5q-an.a.run.app
+
+
+frontendのbuild・deploy
+```
+◆ build
+gcloud builds submit --config ./frontend/cloudbuild-api-server-prod.yaml ./frontend/
+
+◆ deploy
+gcloud run deploy reading-record-frontend --image asia-northeast1-docker.pkg.dev/reading-record-425713/frontend-prod/latest --project reading-record-425713 --platform=managed --region asia-northeast1 --allow-unauthenticated --set-env-vars="BASE_API_URL=https://reading-record-gsczae4q5q-an.a.run.app"
+```
+Frontend URL: https://reading-record-frontend-gsczae4q5q-an.a.run.app
