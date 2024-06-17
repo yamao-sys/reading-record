@@ -3,8 +3,11 @@
 import Snackbar from '@mui/material/Snackbar';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useDebounce } from 'react-use';
 import { createReadingRecord } from '../../../_actions/createReadingRecord';
 import { CreateReadingRecordDto } from '@/api/reading_records/@types';
+import { SearchBooksResponseDto, SearchBooksResultDto } from '@/api/search_books/@types';
+import { searchBooks } from '@/app/reading_records/_actions/searchBooks';
 
 export default function ReadingRecordCreate() {
   const [inputReadingRecord, setInputReadingRecord] = useState<CreateReadingRecordDto>({
@@ -15,6 +18,25 @@ export default function ReadingRecordCreate() {
 
   const updateInputReadingRecord = (params: Partial<CreateReadingRecordDto>) => {
     setInputReadingRecord({ ...inputReadingRecord, ...params });
+  };
+
+  const [inputSearchBooks, setInputSearchBooks] = useState<string>('');
+  const [suggestions, setSuggestions] = useState<SearchBooksResponseDto>([]);
+
+  useDebounce(
+    async () => {
+      if (!inputSearchBooks) return;
+
+      const res = await searchBooks(inputSearchBooks);
+      setSuggestions(res);
+    },
+    500,
+    [inputSearchBooks],
+  );
+
+  const setBookInfo = (suggestion: SearchBooksResultDto) => {
+    updateInputReadingRecord({ title: suggestion.title });
+    setSuggestions([]);
   };
 
   const hundleSubmit = async () => {
@@ -46,8 +68,31 @@ export default function ReadingRecordCreate() {
         key='topcenter'
         autoHideDuration={1200}
       />
-      <div className='mt-16'>
-        <div>
+      <div className='z-10 mt-16'>
+        <div className='relative'>
+          <label
+            htmlFor='search-books'
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+          >
+            <span className='font-bold'>書籍検索</span>
+          </label>
+          <input
+            id='search-books'
+            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            value={inputSearchBooks}
+            onChange={(e) => setInputSearchBooks(e.target.value)}
+          />
+          {!!suggestions.length && (
+            <ul className='absolute bg-white w-full'>
+              {suggestions.map((suggestion, i) => (
+                <li key={i} onClick={() => setBookInfo(suggestion)}>
+                  {suggestion.title}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className='mt-8'>
           <label
             htmlFor='title'
             className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
