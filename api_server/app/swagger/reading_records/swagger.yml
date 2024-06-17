@@ -337,6 +337,9 @@ components:
           type: string
         title:
           type: string
+        author:
+          type: string
+          nullable: true
         learnedContent:
           type: string
           nullable: true
@@ -349,6 +352,7 @@ components:
       required:
         - id
         - title
+        - author
         - learnedContent
         - impression
         - createdAt
@@ -358,6 +362,9 @@ components:
       properties:
         title:
           type: string
+        author:
+          type: string
+          nullable: true
         learnedContent:
           type: string
           nullable: true
@@ -378,6 +385,9 @@ components:
               type: string
             title:
               type: string
+            author:
+              type: string
+              nullable: true
             learnedContent:
               type: string
               nullable: true
@@ -390,6 +400,7 @@ components:
           required:
             - id
             - title
+            - author
             - learnedContent
             - impression
             - createdAt
@@ -406,6 +417,9 @@ components:
             type: string
           title:
             type: string
+          author:
+            type: string
+            nullable: true
           learnedContent:
             type: string
             nullable: true
@@ -418,6 +432,7 @@ components:
         required:
           - id
           - title
+          - author
           - learnedContent
           - impression
           - createdAt
@@ -429,6 +444,9 @@ components:
           type: string
         title:
           type: string
+        author:
+          type: string
+          nullable: true
         learnedContent:
           type: string
           nullable: true
@@ -441,6 +459,7 @@ components:
       required:
         - id
         - title
+        - author
         - learnedContent
         - impression
         - createdAt
@@ -450,6 +469,9 @@ components:
       properties:
         title:
           type: string
+        author:
+          type: string
+          nullable: true
         learnedContent:
           type: string
           nullable: true
@@ -458,6 +480,7 @@ components:
           nullable: true
       required:
         - title
+        - author
         - learnedContent
         - impression
     UpdateReadingRecordResponseDto:
@@ -468,6 +491,9 @@ components:
           type: string
         title:
           type: string
+        author:
+          type: string
+          nullable: true
         learnedContent:
           type: string
           nullable: true
@@ -480,6 +506,7 @@ components:
       required:
         - id
         - title
+        - author
         - learnedContent
         - impression
         - createdAt

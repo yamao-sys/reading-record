@@ -5,6 +5,9 @@ properties:
     type: string
   title:
     type: string
+  author:
+    type: string
+    nullable: true
   learnedContent:
     type: string
     nullable: true
@@ -17,6 +20,7 @@ properties:
 required:
   - id
   - title
+  - author
   - learnedContent
   - impression
   - createdAt

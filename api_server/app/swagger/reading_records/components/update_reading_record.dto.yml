@@ -3,6 +3,9 @@ type: object
 properties:
   title:
     type: string
+  author:
+    type: string
+    nullable: true
   learnedContent:
     type: string
     nullable: true
@@ -11,5 +14,6 @@ properties:
     nullable: true
 required:
   - title
+  - author
   - learnedContent
   - impression
