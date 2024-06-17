@@ -39,6 +39,7 @@ model SubTodo {
 model ReadingRecord {
   id             Int      @id @default(autoincrement())
   title          String   @db.VarChar(255)
+  author         String?  @db.VarChar(255)
   learnedContent String?  @map("learned_content") @db.Text
   impression     String?  @db.Text
   createdAt      DateTime @default(now()) @map("created_at") @db.Timestamp(0)

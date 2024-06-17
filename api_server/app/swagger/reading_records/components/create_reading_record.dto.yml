@@ -3,6 +3,9 @@ type: object
 properties:
   title:
     type: string
+  author:
+    type: string
+    nullable: true
   learnedContent:
     type: string
     nullable: true

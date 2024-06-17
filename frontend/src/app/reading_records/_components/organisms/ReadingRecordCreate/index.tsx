@@ -12,6 +12,7 @@ import { searchBooks } from '@/app/reading_records/_actions/searchBooks';
 export default function ReadingRecordCreate() {
   const [inputReadingRecord, setInputReadingRecord] = useState<CreateReadingRecordDto>({
     title: '',
+    author: null,
     learnedContent: null,
     impression: null,
   });
@@ -35,7 +36,7 @@ export default function ReadingRecordCreate() {
   );
 
   const setBookInfo = (suggestion: SearchBooksResultDto) => {
-    updateInputReadingRecord({ title: suggestion.title });
+    updateInputReadingRecord({ title: suggestion.title, author: suggestion.author });
     setSuggestions([]);
   };
 
@@ -104,6 +105,20 @@ export default function ReadingRecordCreate() {
             className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             value={inputReadingRecord.title}
             onChange={(e) => updateInputReadingRecord({ title: e.target.value })}
+          />
+        </div>
+        <div className='mt-8'>
+          <label
+            htmlFor='title'
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+          >
+            <span className='font-bold'>著者</span>
+          </label>
+          <input
+            id='title'
+            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            value={inputReadingRecord.author}
+            onChange={(e) => updateInputReadingRecord({ author: e.target.value })}
           />
         </div>
         <div className='mt-8'>

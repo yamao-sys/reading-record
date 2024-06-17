@@ -3,6 +3,7 @@
 export type ReadingRecordDto = {
   id: string;
   title: string;
+  author: string | null;
   learnedContent: string | null;
   impression: string | null;
   createdAt: string;
@@ -11,6 +12,7 @@ export type ReadingRecordDto = {
 /** 読書記録作成のrequest DTO */
 export type CreateReadingRecordDto = {
   title: string;
+  author?: string | null | undefined;
   learnedContent?: string | null | undefined;
   impression?: string | null | undefined;
 };
@@ -21,6 +23,7 @@ export type CreateReadingRecordResponseDto = {
   readingRecord: {
     id: string;
     title: string;
+    author: string | null;
     learnedContent: string | null;
     impression: string | null;
     createdAt: string;
@@ -31,6 +34,7 @@ export type CreateReadingRecordResponseDto = {
 export type FetchAllReadingRecordResponseDto = {
   id: string;
   title: string;
+  author: string | null;
   learnedContent: string | null;
   impression: string | null;
   createdAt: string;
@@ -40,6 +44,7 @@ export type FetchAllReadingRecordResponseDto = {
 export type FetchReadingRecordResponseDto = {
   id: string;
   title: string;
+  author: string | null;
   learnedContent: string | null;
   impression: string | null;
   createdAt: string;
@@ -48,6 +53,7 @@ export type FetchReadingRecordResponseDto = {
 /** 読書記録更新のrequest DTO */
 export type UpdateReadingRecordDto = {
   title: string;
+  author: string | null;
   learnedContent: string | null;
   impression: string | null;
 };
@@ -56,6 +62,7 @@ export type UpdateReadingRecordDto = {
 export type UpdateReadingRecordResponseDto = {
   id: string;
   title: string;
+  author: string | null;
   learnedContent: string | null;
   impression: string | null;
   createdAt: string;
