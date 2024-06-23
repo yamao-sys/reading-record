@@ -4,6 +4,7 @@ export type ReadingRecordDto = {
   id: string;
   title: string;
   author: string | null;
+  bookImage: string | null;
   learnedContent: string | null;
   impression: string | null;
   createdAt: string;
@@ -13,6 +14,7 @@ export type ReadingRecordDto = {
 export type CreateReadingRecordDto = {
   title: string;
   author?: string | null | undefined;
+  bookImage?: string | null | undefined;
   learnedContent?: string | null | undefined;
   impression?: string | null | undefined;
 };
@@ -24,6 +26,7 @@ export type CreateReadingRecordResponseDto = {
     id: string;
     title: string;
     author: string | null;
+    bookImage: string | null;
     learnedContent: string | null;
     impression: string | null;
     createdAt: string;
@@ -35,6 +38,7 @@ export type FetchAllReadingRecordResponseDto = {
   id: string;
   title: string;
   author: string | null;
+  bookImage: string | null;
   learnedContent: string | null;
   impression: string | null;
   createdAt: string;
@@ -45,6 +49,7 @@ export type FetchReadingRecordResponseDto = {
   id: string;
   title: string;
   author: string | null;
+  bookImage: string | null;
   learnedContent: string | null;
   impression: string | null;
   createdAt: string;
@@ -54,6 +59,7 @@ export type FetchReadingRecordResponseDto = {
 export type UpdateReadingRecordDto = {
   title: string;
   author: string | null;
+  bookImage?: string | null | undefined;
   learnedContent: string | null;
   impression: string | null;
 };
@@ -63,6 +69,7 @@ export type UpdateReadingRecordResponseDto = {
   id: string;
   title: string;
   author: string | null;
+  bookImage: string | null;
   learnedContent: string | null;
   impression: string | null;
   createdAt: string;

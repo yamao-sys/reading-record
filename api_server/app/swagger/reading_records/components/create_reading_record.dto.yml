@@ -6,6 +6,9 @@ properties:
   author:
     type: string
     nullable: true
+  bookImage:
+    type: string
+    nullable: true
   learnedContent:
     type: string
     nullable: true

@@ -1,8 +1,9 @@
 'use client';
 
 import Snackbar from '@mui/material/Snackbar';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDebounce } from 'react-use';
 import { createReadingRecord } from '../../../_actions/createReadingRecord';
 import { CreateReadingRecordDto } from '@/api/reading_records/@types';
@@ -14,6 +15,7 @@ export default function ReadingRecordCreate() {
     title: '',
     author: null,
     learnedContent: null,
+    bookImage: null,
     impression: null,
   });
 
@@ -36,7 +38,11 @@ export default function ReadingRecordCreate() {
   );
 
   const setBookInfo = (suggestion: SearchBooksResultDto) => {
-    updateInputReadingRecord({ title: suggestion.title, author: suggestion.author });
+    updateInputReadingRecord({
+      title: suggestion.title,
+      author: suggestion.author,
+      bookImage: suggestion.bookImageUrl,
+    });
     setSuggestions([]);
   };
 
@@ -53,6 +59,13 @@ export default function ReadingRecordCreate() {
     router.push('/reading_records');
     router.refresh();
   };
+
+  const bookImg = useMemo(() => {
+    console.log(inputReadingRecord.bookImage);
+    if (inputReadingRecord.bookImage) return inputReadingRecord.bookImage;
+
+    return '/noimage.png';
+  }, [inputReadingRecord]);
 
   return (
     <>
@@ -84,7 +97,7 @@ export default function ReadingRecordCreate() {
             onChange={(e) => setInputSearchBooks(e.target.value)}
           />
           {!!suggestions.length && (
-            <ul className='absolute bg-white w-full'>
+            <ul className='absolute bg-white w-full z-10'>
               {suggestions.map((suggestion, i) => (
                 <li key={i} onClick={() => setBookInfo(suggestion)}>
                   {suggestion.title}
@@ -92,6 +105,13 @@ export default function ReadingRecordCreate() {
               ))}
             </ul>
           )}
+        </div>
+        <div className='mt-8'>
+          <div className='flex w-full justify-center'>
+            <div className='w-24 h-32 relative'>
+              <Image src={bookImg} alt='書籍画像' fill />
+            </div>
+          </div>
         </div>
         <div className='mt-8'>
           <label

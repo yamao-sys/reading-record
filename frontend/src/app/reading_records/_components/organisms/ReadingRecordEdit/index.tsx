@@ -1,8 +1,9 @@
 'use client';
 
 import Snackbar from '@mui/material/Snackbar';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { updateReadingRecord } from '../../../_actions/updateReadingRecord';
 import { ReadingRecordDto, UpdateReadingRecordDto } from '@/api/reading_records/@types';
 
@@ -35,6 +36,12 @@ export default function ReadingRecordEdit({ readingRecord }: ReadingRecordEditTy
     router.refresh();
   };
 
+  const bookImg = useMemo(() => {
+    if (inputReadingRecord.bookImage) return inputReadingRecord.bookImage;
+
+    return '/noimage.png';
+  }, [inputReadingRecord]);
+
   return (
     <>
       <Snackbar
@@ -64,6 +71,13 @@ export default function ReadingRecordEdit({ readingRecord }: ReadingRecordEditTy
             value={inputReadingRecord.title}
             onChange={(e) => updateInputReadingRecord({ title: e.target.value })}
           />
+        </div>
+        <div className='mt-8'>
+          <div className='flex w-full justify-center'>
+            <div className='w-24 h-32 relative'>
+              <Image src={bookImg} alt='書籍画像' fill />
+            </div>
+          </div>
         </div>
         <div className='mt-8'>
           <label
