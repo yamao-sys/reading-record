@@ -5,9 +5,9 @@ properties:
     type: string
   author:
     type: string
-  mediumImageUrl:
+  bookImageUrl:
     type: string
 required:
   - title
   - author
-  - mediumImageUrl
+  - bookImageUrl
