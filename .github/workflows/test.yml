@@ -14,7 +14,7 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: reading_records_test
+          MYSQL_DATABASE: reading_record_test
           TZ: "Asia/Tokyo"
 
     steps:

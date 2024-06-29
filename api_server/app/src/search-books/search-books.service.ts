@@ -24,7 +24,7 @@ export class SearchBooksService {
             return {
               title: book.title,
               author: book.author,
-              mediumImageUrl: book.mediumImageUrl,
+              bookImageUrl: book.mediumImageUrl,
             };
           }),
         ),

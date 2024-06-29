@@ -12,7 +12,7 @@ export async function setupDatabase() {
   // CI環境の時はDATABASE_URLをlocalhostに変更
   if (process.env?.IS_CI) {
     process.env.DATABASE_URL =
-      'mysql://root:root@127.0.0.1:3306/reading_records_test';
+      'mysql://root:root@127.0.0.1:3306/reading_record_test';
   }
 
   // DBの作成

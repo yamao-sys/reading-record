@@ -340,6 +340,10 @@ components:
         author:
           type: string
           nullable: true
+        bookImage:
+          type: string
+          format: bite
+          nullable: true
         learnedContent:
           type: string
           nullable: true
@@ -353,6 +357,7 @@ components:
         - id
         - title
         - author
+        - bookImage
         - learnedContent
         - impression
         - createdAt
@@ -364,6 +369,10 @@ components:
           type: string
         author:
           type: string
+          nullable: true
+        bookImage:
+          type: string
+          format: bite
           nullable: true
         learnedContent:
           type: string
@@ -388,6 +397,10 @@ components:
             author:
               type: string
               nullable: true
+            bookImage:
+              type: string
+              format: bite
+              nullable: true
             learnedContent:
               type: string
               nullable: true
@@ -401,6 +414,7 @@ components:
             - id
             - title
             - author
+            - bookImage
             - learnedContent
             - impression
             - createdAt
@@ -420,6 +434,10 @@ components:
           author:
             type: string
             nullable: true
+          bookImage:
+            type: string
+            format: bite
+            nullable: true
           learnedContent:
             type: string
             nullable: true
@@ -433,6 +451,7 @@ components:
           - id
           - title
           - author
+          - bookImage
           - learnedContent
           - impression
           - createdAt
@@ -447,6 +466,10 @@ components:
         author:
           type: string
           nullable: true
+        bookImage:
+          type: string
+          format: bite
+          nullable: true
         learnedContent:
           type: string
           nullable: true
@@ -460,6 +483,7 @@ components:
         - id
         - title
         - author
+        - bookImage
         - learnedContent
         - impression
         - createdAt
@@ -470,6 +494,9 @@ components:
         title:
           type: string
         author:
+          type: string
+          nullable: true
+        bookImage:
           type: string
           nullable: true
         learnedContent:
@@ -494,6 +521,10 @@ components:
         author:
           type: string
           nullable: true
+        bookImage:
+          type: string
+          format: bite
+          nullable: true
         learnedContent:
           type: string
           nullable: true
@@ -507,6 +538,7 @@ components:
         - id
         - title
         - author
+        - bookImage
         - learnedContent
         - impression
         - createdAt

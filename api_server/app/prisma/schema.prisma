@@ -42,6 +42,7 @@ model ReadingRecord {
   author         String?  @db.VarChar(255)
   learnedContent String?  @map("learned_content") @db.Text
   impression     String?  @db.Text
+  bookImage      String?  @map("book_image") @db.Text
   createdAt      DateTime @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt      DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(0)
 

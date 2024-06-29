@@ -5,14 +5,20 @@ export interface Book {
   price: number;
 }
 
-export interface BookItem {
+export interface BookApiResponseItem {
   title: string;
   author: string;
   mediumImageUrl: string;
 }
 
+export interface BookItem {
+  title: string;
+  author: string;
+  bookImageUrl: string;
+}
+
 export interface BookApiResponse {
   Items: {
-    Item: BookItem;
+    Item: BookApiResponseItem;
   }[];
 }

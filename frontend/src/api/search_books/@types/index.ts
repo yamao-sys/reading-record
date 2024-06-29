@@ -3,12 +3,12 @@
 export type SearchBooksResponseDto = {
   title: string;
   author: string;
-  mediumImageUrl: string;
+  bookImageUrl: string;
 }[];
 
 /** 書籍検索結果のDTO */
 export type SearchBooksResultDto = {
   title: string;
   author: string;
-  mediumImageUrl: string;
+  bookImageUrl: string;
 };

@@ -48,12 +48,12 @@ components:
             type: string
           author:
             type: string
-          mediumImageUrl:
+          bookImageUrl:
             type: string
         required:
           - title
           - author
-          - mediumImageUrl
+          - bookImageUrl
     SearchBooksResultDto:
       description: 書籍検索結果のDTO
       type: object
@@ -62,9 +62,9 @@ components:
           type: string
         author:
           type: string
-        mediumImageUrl:
+        bookImageUrl:
           type: string
       required:
         - title
         - author
-        - mediumImageUrl
+        - bookImageUrl
