@@ -61,7 +61,6 @@ export default function ReadingRecordCreate() {
   };
 
   const bookImg = useMemo(() => {
-    console.log(inputReadingRecord.bookImage);
     if (inputReadingRecord.bookImage) return inputReadingRecord.bookImage;
 
     return '/noimage.png';
