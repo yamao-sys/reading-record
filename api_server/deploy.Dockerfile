@@ -18,5 +18,6 @@ COPY ./app/prisma ./prisma
 COPY ./app/start.sh ./
 RUN npm install
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/src/google-cloud/reading-record-425713-43505c9f19a2.json ./src/google-cloud/reading-record-425713-43505c9f19a2.json
 RUN chmod +x ./start.sh
 CMD ["./start.sh"]

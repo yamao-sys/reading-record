@@ -2,7 +2,6 @@ substitutions:
   _IMAGE: 'api-server-prod/latest'
   _REGION: 'asia-northeast1'
   _SERVICE: 'reading-record'
-  _SECRETS: 'DATABASE_URL=DATABASE_URL:latest,BOOKS_API_ENDPOINT=BOOKS_API_ENDPOINT:latest,BOOKS_API_APPLICATION_ID=BOOKS_API_APPLICATION_ID:latest,GCS_KEY_FILE_PATH=GCS_KEY_FILE_PATH:latest,BUCKET_NAME=BUCKET_NAME:latest'
 steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
@@ -12,18 +11,30 @@ steps:
   args: ['push', '$_REGION-docker.pkg.dev/${PROJECT_ID}/$_IMAGE']
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: gcloud
-  args:
-  - 'run'
-  - 'jobs'
-  - 'deploy'
-  - '$_SERVICE'
-  - '--image'
-  - '$_REGION-docker.pkg.dev/${PROJECT_ID}/$_IMAGE'
-  - '--region'
-  - '$_REGION'
-  - '--set-secrets'
-  - '$_SECRETS'
-  - '--execute-now'
-images:
-- 'asia-northeast1-docker.pkg.dev/reading-record-425713/api-server-prod/latest:latest'
+  entrypoint: 'bash'
+  args: 
+    - -c
+    - |
+      gcloud run deploy ${_SERVICE} \
+        --image ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_IMAGE} \
+        --project ${PROJECT_ID} \
+        --platform managed \
+        --region ${_REGION} \
+        --allow-unauthenticated \
+        --add-cloudsql-instances "$$DATABASE_INSTANCE_NAME" \
+        --update-env-vars="DATABASE_URL=$$DATABASE_URL,BOOKS_API_ENDPOINT=$$BOOKS_API_ENDPOINT,BOOKS_API_APPLICATION_ID=$$BOOKS_API_APPLICATION_ID,GCS_KEY_FILE_PATH=$$GCS_KEY_FILE_PATH,BUCKET_NAME=$$BUCKET_NAME"
+  secretEnv: [ 'DATABASE_INSTANCE_NAME', 'DATABASE_URL', 'BOOKS_API_ENDPOINT', 'BOOKS_API_APPLICATION_ID', 'GCS_KEY_FILE_PATH', 'BUCKET_NAME' ]
+availableSecrets:
+  secretManager:
+    - versionName: "projects/${PROJECT_ID}/secrets/DATABASE_INSTANCE_NAME/versions/latest"
+      env: DATABASE_INSTANCE_NAME
+    - versionName: "projects/${PROJECT_ID}/secrets/DATABASE_URL/versions/latest"
+      env: DATABASE_URL
+    - versionName: "projects/${PROJECT_ID}/secrets/BOOKS_API_ENDPOINT/versions/latest"
+      env: BOOKS_API_ENDPOINT
+    - versionName: "projects/${PROJECT_ID}/secrets/BOOKS_API_APPLICATION_ID/versions/latest"
+      env: BOOKS_API_APPLICATION_ID
+    - versionName: "projects/${PROJECT_ID}/secrets/GCS_KEY_FILE_PATH/versions/latest"
+      env: GCS_KEY_FILE_PATH
+    - versionName: "projects/${PROJECT_ID}/secrets/BUCKET_NAME/versions/latest"
+      env: BUCKET_NAME

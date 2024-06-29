@@ -7,6 +7,10 @@ const nextConfig = {
         hostname: 'thumbnail.image.rakuten.co.jp',
       },
       {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+      },
+      {
         protocol: 'http',
         hostname: 'gcs',
       },
