@@ -1,6 +1,6 @@
 name: frontend_lint
 
-on: push
+on: [pull_request]
 
 jobs:
   eslint:
