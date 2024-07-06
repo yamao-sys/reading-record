@@ -65,7 +65,6 @@ export default function ReadingRecordCreate() {
 
     return '/noimage.png';
   }, [inputReadingRecord]);
-  console.log('test');
 
   return (
     <>
