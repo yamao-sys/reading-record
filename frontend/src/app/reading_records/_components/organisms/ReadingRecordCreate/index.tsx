@@ -60,9 +60,8 @@ export default function ReadingRecordCreate() {
     router.refresh();
   };
 
-  const bookImg: string = useMemo(() => {
-    // if (inputReadingRecord.bookImage) return inputReadingRecord.bookImage;
-    return 1;
+  const bookImg = useMemo(() => {
+    if (inputReadingRecord.bookImage) return inputReadingRecord.bookImage;
 
     return '/noimage.png';
   }, [inputReadingRecord]);
