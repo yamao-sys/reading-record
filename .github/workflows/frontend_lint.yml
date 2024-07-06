@@ -21,11 +21,10 @@ jobs:
 
       # ReviewdogをESLintで実行
       - name: Run ESLint Reviewdog
-        working-directory: ./frontend/src
         uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          eslint_flags: "src/**/*.{ts,tsx}"
+          eslint_flags: "**/*.{ts,tsx}"
           fail_on_error: true # 指摘が発生したらjobを失敗扱いにする
-          workdir: ./frontend/ # ルート直下の場合は不要
+          workdir: ./frontend/src # ルート直下の場合は不要
