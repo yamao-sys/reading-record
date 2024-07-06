@@ -25,6 +25,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          eslint_flags: ./
+          eslint_flags: ./**/*.{ts,tsx}
           fail_on_error: true # 指摘が発生したらjobを失敗扱いにする
           workdir: ./frontend/src/ # ルート直下の場合は不要
