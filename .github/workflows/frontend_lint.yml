@@ -1,0 +1,30 @@
+name: frontend_lint
+
+on: push
+
+jobs:
+  test:
+    name: Frontend Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: ./frontend/src
+        run: npm install
+
+      # ReviewdogをESLintで実行
+      - name: Run ESLint Reviewdog
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          eslint_flags: "src/**/*.{ts,tsx}"
+          fail_on_error: true # 指摘が発生したらjobを失敗扱いにする
+          workdir: ./frontend/ # ルート直下の場合は不要
