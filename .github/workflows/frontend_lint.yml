@@ -33,8 +33,5 @@ jobs:
         shell: bash
 
       - name: Run eslint with reviewdog
-        run: |
-          cd ./frontend/src
-          npm run lint -- --format json --output-file eslint-report.json
-          npx reviewdog -f=eslint -reporter=github-pr-review -level=error -fail-on-error -input=eslint-report.json
+        run: cd ./frontend/src && npm run lint | reviewdog -reporter=github-pr-review -f=eslint -filter-mode=nofilter -fail-on-error
         shell: bash
