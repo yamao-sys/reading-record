@@ -1,5 +1,5 @@
 # reading-record
-Nest.js × Next.js の読書記録アプリ(REST API)
+NestJS × Next.js の読書記録アプリ(REST API)
 
 ## キャッシュの扱い
 - 初期段階では特にキャッシュ意識しなくても良さそう
