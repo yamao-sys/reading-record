@@ -21,15 +21,6 @@ jobs:
         working-directory: ./frontend/src
         run: npm install
 
-      # ReviewdogをESLintで実行
-      # - name: Run ESLint Reviewdog
-      #   uses: reviewdog/action-eslint@v1
-      #   with:
-      #     github_token: ${{ secrets.github_token }}
-      #     reporter: github-pr-review
-      #     eslint_flags: ./**/*.{ts,tsx}
-      #     fail_on_error: true # 指摘が発生したらjobを失敗扱いにする
-      #     workdir: ./frontend/src/ # ルート直下の場合は不要
       - name: Setup reviewdog
         uses: reviewdog/action-setup@v1
 
@@ -42,5 +33,8 @@ jobs:
         shell: bash
 
       - name: Run eslint with reviewdog
-        run: cd ./frontend/src && npm run lint | reviewdog -reporter=github-pr-review -f=eslint -filter-mode=nofilter -fail-on-error
+        run: |
+          cd ./frontend/src
+          npm run lint -- --format json --output-file eslint-report.json
+          npx reviewdog -f=eslint -reporter=github-pr-review -level=error -fail-on-error -input=eslint-report.json
         shell: bash
