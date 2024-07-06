@@ -6,9 +6,11 @@
     "dev": "npx dotenv -e .env.development -- next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --dir src",
+    "lint": "npx eslint './**/*.{ts,tsx}'",
     "lint:fix": "next lint --fix",
+    "lint:prettier": "prettier  --check './**/*.{ts,tsx}'",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
+    "tsc": "tsc --noEmit",
     "test": "jest"
   },
   "dependencies": {
@@ -35,7 +37,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
-    "eslint": "^8",
+    "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.1.0",
     "event-stream": "^4.0.1",

@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import ReadingRecordCreate from '.';
 import * as CreateReadingRecord from '@/app/reading_records/_actions/createReadingRecord';
 import * as SearchBooks from '@/app/reading_records/_actions/searchBooks';

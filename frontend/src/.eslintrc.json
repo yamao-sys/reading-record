@@ -14,5 +14,13 @@
         }
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.{ts,tsx}", "!log.js"],
+      "rules": {
+        "no-console": ["error"]
+      }
+    }
+  ]
 }
