@@ -6,7 +6,7 @@
     "dev": "npx dotenv -e .env.development -- next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --dir ./",
+    "lint": "next lint --dir ./ -f stylish",
     "lint:fix": "next lint --fix",
     "lint:prettier": "prettier  --check './**/*.{ts,tsx}'",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
