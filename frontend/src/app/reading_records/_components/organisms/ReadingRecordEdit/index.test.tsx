@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import ReadingRecordEdit from '.';
 import { ReadingRecordDto } from '@/api/reading_records/@types';
 import * as UpdateReadingRecord from '@/app/reading_records/_actions/updateReadingRecord';

@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import ReadingRecordLists from '.';
 import { FetchAllReadingRecordResponseDto } from '@/api/reading_records/@types';
 import * as DeleteReadingRecord from '@/app/reading_records/_actions/deleteReadingRecord';
