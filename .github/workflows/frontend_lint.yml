@@ -3,8 +3,8 @@ name: frontend_lint
 on: push
 
 jobs:
-  test:
-    name: Frontend Test
+  eslint:
+    name: Frontend Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,7 +23,7 @@ jobs:
       - name: Run ESLint Reviewdog
         uses: reviewdog/action-eslint@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           eslint_flags: ./**/*.{ts,tsx}
           fail_on_error: true # 指摘が発生したらjobを失敗扱いにする
