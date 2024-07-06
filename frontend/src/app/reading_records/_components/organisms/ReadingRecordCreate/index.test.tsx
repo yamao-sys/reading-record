@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ReadingRecordCreate from '.';
-import { CreateReadingRecordDto } from '@/api/reading_records/@types';
 import * as CreateReadingRecord from '@/app/reading_records/_actions/createReadingRecord';
 import * as SearchBooks from '@/app/reading_records/_actions/searchBooks';
 
@@ -181,56 +180,4 @@ describe('reading_records/_components/organisms/ReadingRecordCreate', () => {
       });
     });
   });
-
-  // describe('削除ボタンの押下', () => {
-  //   it('確認ダイアログが表示されること', () => {
-  //     render(<ReadingRecordLists readingRecords={readingRecords} />);
-
-  //     const editButton = screen.getAllByRole('button', { name: '削除する' });
-  //     user.click(editButton[0]);
-
-  //     waitFor(() => {
-  //       const dialog = screen.getByRole('dialog');
-  //       expect(dialog).toBeVisible();
-  //     });
-  //   });
-
-  //   it('削除された読書記録が表示されなくなること', () => {
-  //     // NOTE: window.confirmのモック化
-  //     jest.spyOn(window, 'confirm').mockImplementation(() => true);
-
-  //     // NOTE: deleteReadingRecordのモック化
-  //     deleteReadingRecordSpy = jest
-  //       .spyOn(DeleteReadingRecord, 'deleteReadingRecord')
-  //       .mockResolvedValue({ result: true });
-
-  //     render(<ReadingRecordLists readingRecords={readingRecords} />);
-
-  //     const editButton = screen.getAllByRole('button', { name: '削除する' });
-  //     user.click(editButton[0]);
-
-  //     waitFor(() => {
-  //       expect(screen.getByText('test_title_1')).not.toBeInTheDocument();
-  //     });
-  //   });
-
-  //   it('削除成功のスナックバーが表示されること', () => {
-  //     // NOTE: window.confirmのモック化
-  //     jest.spyOn(window, 'confirm').mockImplementation(() => true);
-
-  //     // NOTE: deleteReadingRecordのモック化
-  //     deleteReadingRecordSpy = jest
-  //       .spyOn(DeleteReadingRecord, 'deleteReadingRecord')
-  //       .mockResolvedValue({ result: true });
-
-  //     render(<ReadingRecordLists readingRecords={readingRecords} />);
-
-  //     const editButton = screen.getAllByRole('button', { name: '削除する' });
-  //     user.click(editButton[0]);
-
-  //     waitFor(() => {
-  //       expect(screen.getByText('deleted successfully!!')).not.toBeInTheDocument();
-  //     });
-  //   });
-  // });
 });
