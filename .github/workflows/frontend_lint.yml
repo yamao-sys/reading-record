@@ -20,10 +20,6 @@ jobs:
       - name: Install dependencies
         working-directory: ./frontend/src
         run: npm install
-      
-      - name: Run eslint
-        working-directory: ./frontend/src
-        run: npm run lint
 
       - name: Setup reviewdog
         uses: reviewdog/action-setup@v1
@@ -36,6 +32,6 @@ jobs:
         run: cd ./frontend/src && npm run lint:prettier
         shell: bash
 
-      # - name: Run eslint with reviewdog
-      #   run: cd ./frontend/src && npm run lint | reviewdog -reporter=github-pr-review -f=eslint -filter-mode=nofilter -fail-on-error
-      #   shell: bash
+      - name: Run eslint with reviewdog
+        run: cd ./frontend/src && npm run lint | reviewdog -reporter=github-pr-review -f=eslint -filter-mode=nofilter -fail-on-error
+        shell: bash
