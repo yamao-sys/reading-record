@@ -38,7 +38,9 @@ jest.mock('../../../_contexts/SignUpContext', () => {
 });
 let signUpContextSpy: jest.SpyInstance<unknown>;
 
-describe('reading_records/_components/organisms/SignUpFormConfirm', () => {
+const togglePhase = jest.fn();
+
+describe('reading_records/_components/organisms/SignUpConfirm', () => {
   beforeEach(() => {
     signUpContextSpy = jest.spyOn(SignUpContext, 'useSignUpContext').mockReturnValue({
       inputName: 'test_name',
@@ -57,7 +59,7 @@ describe('reading_records/_components/organisms/SignUpFormConfirm', () => {
   });
 
   it('フォームが表示されること', () => {
-    render(<SignUpConfirmation />);
+    render(<SignUpConfirmation togglePhase={togglePhase} />);
 
     expect(screen.getByText('test_name')).toBeInTheDocument();
     expect(screen.getByText('test@example.com')).toBeInTheDocument();
@@ -73,26 +75,26 @@ describe('reading_records/_components/organisms/SignUpFormConfirm', () => {
     });
 
     it('サンクス画面へ遷移できる', () => {
-      render(<SignUpConfirmation />);
+      render(<SignUpConfirmation togglePhase={togglePhase} />);
 
       const submitButtonElement = screen.getByRole('button', { name: '登録する' });
       user.click(submitButtonElement);
 
       waitFor(() => {
-        expect(push).toHaveBeenCalled();
+        expect(togglePhase).toHaveBeenCalled();
       });
     });
   });
 
   describe('入力画面への遷移', () => {
     it('入力画面へ遷移できる', () => {
-      render(<SignUpConfirmation />);
+      render(<SignUpConfirmation togglePhase={togglePhase} />);
 
       const submitButtonElement = screen.getByRole('button', { name: '入力へ戻る' });
       user.click(submitButtonElement);
 
       waitFor(() => {
-        expect(push).toHaveBeenCalled();
+        expect(togglePhase).toHaveBeenCalled();
       });
     });
   });

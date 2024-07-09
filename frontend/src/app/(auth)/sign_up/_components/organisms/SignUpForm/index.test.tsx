@@ -1,33 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
-import * as PostValidateSignUp from '../../../_actions/postValidateSignUp';
+import { render, screen } from '@testing-library/react';
 import * as SignUpContext from '../../../_contexts/SignUpContext';
 import { SignUpForm } from '.';
-
-// userのセットアップ
-const user = userEvent.setup();
-
-const push = jest.fn();
-jest.mock('next/navigation', () => {
-  const router = jest.requireActual('next/navigation');
-  return {
-    ...router,
-    useRouter: () => {
-      return {
-        push,
-      };
-    },
-  };
-});
-
-jest.mock('../../../_actions/postValidateSignUp', () => {
-  const postValidateSignUp = jest.requireActual('../../../_actions/postValidateSignUp');
-  return {
-    __esModule: true,
-    ...postValidateSignUp,
-  };
-});
-let postValidateSignUpSpy: jest.SpyInstance<unknown>;
 
 jest.mock('../../../_contexts/SignUpContext', () => {
   const signUpContext = jest.requireActual('../../../_contexts/SignUpContext');
@@ -38,7 +11,7 @@ jest.mock('../../../_contexts/SignUpContext', () => {
 });
 let signUpContextSpy: jest.SpyInstance<unknown>;
 
-describe('reading_records/_components/organisms/SignUpForm', () => {
+describe('reading_records/_components/organisms/SignUpInput', () => {
   beforeEach(() => {
     signUpContextSpy = jest.spyOn(SignUpContext, 'useSignUpContext').mockReturnValue({
       inputName: 'test_name',
@@ -56,99 +29,16 @@ describe('reading_records/_components/organisms/SignUpForm', () => {
     signUpContextSpy.mockRestore();
   });
 
-  it('フォームが表示されること', () => {
-    render(<SignUpForm />);
-
-    expect(screen.getByLabelText('ユーザ名')).toHaveDisplayValue('test_name');
-    expect(screen.getByLabelText('メールアドレス')).toHaveDisplayValue('test@example.com');
-    expect(screen.getByLabelText('パスワード')).toHaveDisplayValue('Passwor1');
-    expect(screen.getByLabelText('パスワード確認用')).toHaveDisplayValue('Passwor1');
-
-    expect(screen.getByRole('button', { name: '確認画面へ' })).toBeInTheDocument();
-  });
-
-  describe('バリデーションエラーがない場合', () => {
-    beforeEach(() => {
-      postValidateSignUpSpy = jest
-        .spyOn(PostValidateSignUp, 'postValidateSignUp')
-        .mockResolvedValue({ errors: {} });
-    });
-
-    it('確認画面へ遷移できる', () => {
+  describe('入力画面', () => {
+    it('入力画面が表示できること', () => {
       render(<SignUpForm />);
 
-      const submitButtonElement = screen.getByRole('button');
-      user.click(submitButtonElement);
+      expect(screen.getByLabelText('ユーザ名')).toHaveDisplayValue('test_name');
+      expect(screen.getByLabelText('メールアドレス')).toHaveDisplayValue('test@example.com');
+      expect(screen.getByLabelText('パスワード')).toHaveDisplayValue('Passwor1');
+      expect(screen.getByLabelText('パスワード確認用')).toHaveDisplayValue('Passwor1');
 
-      waitFor(() => {
-        expect(push).toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe('バリデーションエラーがある場合', () => {
-    beforeEach(() => {
-      signUpContextSpy = jest.spyOn(SignUpContext, 'useSignUpContext').mockReturnValue({
-        inputName: '',
-        setInputName: jest.fn(),
-        inputEmail: '',
-        setInputEmail: jest.fn(),
-        inputPassword: '',
-        setInputPassword: jest.fn(),
-        inputPasswordConfirm: '',
-        setInputPasswordConfirm: jest.fn(),
-      });
-      postValidateSignUpSpy = jest
-        .spyOn(PostValidateSignUp, 'postValidateSignUp')
-        .mockResolvedValue({
-          errors: {
-            name: ['ユーザ名は必須です。'],
-            email: [
-              'メールアドレスは必須です。',
-              'メールアドレスの形式はxxx@example.comでお願いします。',
-            ],
-            password: [
-              'パスワードは必須です。',
-              'パスワードは8文字以上20文字以内で入力をお願いします。',
-              'パスワードは半角英数字の大文字・小文字・数字をそれぞれ最低1文字で入力をお願いします。',
-            ],
-            passwordConfirm: ['パスワード確認用は必須です。'],
-          },
-        });
-    });
-
-    it('確認画面へ遷移せず、パリデーションエラーが表示される', () => {
-      render(<SignUpForm />);
-
-      const submitButtonElement = screen.getByRole('button');
-      user.click(submitButtonElement);
-
-      waitFor(() => {
-        expect(push).not.toHaveBeenCalled();
-
-        // ユーザ名
-        expect(screen.getByText('ユーザ名は必須です。')).toBeInTheDocument();
-
-        // メールアドレス
-        expect(screen.getByText('メールアドレスは必須です。')).toBeInTheDocument();
-        expect(
-          screen.getByText('メールアドレスの形式はxxx@example.comでお願いします。'),
-        ).toBeInTheDocument();
-
-        // パスワード
-        expect(screen.getByText('パスワードは必須です。')).toBeInTheDocument();
-        expect(
-          screen.getByText('パスワードは8文字以上20文字以内で入力をお願いします。'),
-        ).toBeInTheDocument();
-        expect(
-          screen.getByText(
-            'パスワードは半角英数字の大文字・小文字・数字をそれぞれ最低1文字で入力をお願いします。',
-          ),
-        ).toBeInTheDocument();
-
-        // パスワード確認用
-        expect(screen.getByText('パスワード確認用は必須です。')).toBeInTheDocument();
-      });
+      expect(screen.getByRole('button', { name: '確認画面へ' })).toBeInTheDocument();
     });
   });
 });

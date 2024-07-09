@@ -1,15 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { postSignUp } from '../../../_actions/postSignUp';
 import { useSignUpContext } from '../../../_contexts/SignUpContext';
+import { PhaseType } from '../../../types';
 import { BaseLayout } from '../BaseLayout';
 
-export const SignUpConfirmation = () => {
+type Props = {
+  togglePhase: (newPhase: PhaseType) => void;
+};
+
+export const SignUpConfirmation = ({ togglePhase }: Props) => {
   const { inputName, inputEmail, inputPassword, inputPasswordConfirm } = useSignUpContext();
 
-  const router = useRouter();
-  const handleBackPage = () => router.push('/sign_up');
+  const handleBackPage = () => togglePhase('input');
 
   const handleSignUp = async () => {
     try {
@@ -19,7 +22,7 @@ export const SignUpConfirmation = () => {
         password: inputPassword,
         passwordConfirm: inputPasswordConfirm,
       });
-      router.push('/sign_up/thanks');
+      togglePhase('thanks');
     } catch (error) {
       // TODO: エラーハンドリング
     }
