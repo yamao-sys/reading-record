@@ -2,7 +2,7 @@
 
 import { postSignUp } from '../../../_actions/postSignUp';
 import { useSignUpContext } from '../../../_contexts/SignUpContext';
-import { PhaseType } from '../../../types';
+import { PhaseType } from '../../../sign_up/types';
 import { BaseLayout } from '../BaseLayout';
 
 type Props = {

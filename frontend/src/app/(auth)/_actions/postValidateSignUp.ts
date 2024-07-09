@@ -1,11 +1,11 @@
 'use server';
 
-import { getAuthApiClient } from '../../_actions/getAuthApiClient';
+import { getAuthApiClient } from './getAuthApiClient';
 import { SignUpDto } from '@/api/auth/@types';
 
-export const postSignUp = async (data: SignUpDto) => {
+export const postValidateSignUp = async (data: SignUpDto) => {
   const client = getAuthApiClient();
-  const response = await client.auth.signUp.post({
+  const response = await client.auth.validateSignUp.post({
     body: {
       name: data.name,
       email: data.email,
@@ -14,5 +14,5 @@ export const postSignUp = async (data: SignUpDto) => {
     },
   });
 
-  return { result: response.body.result };
+  return { errors: response.body.errors };
 };
