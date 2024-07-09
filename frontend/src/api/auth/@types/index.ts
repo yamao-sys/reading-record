@@ -21,3 +21,15 @@ export type ValidateSignUpResponseDto = {
 export type SignUpResponseDto = {
   result: boolean;
 };
+
+/** Sign in params. */
+export type SignInDto = {
+  email: string;
+  password: string;
+  errors?: string[] | undefined;
+};
+
+/** ログインのレスポンス */
+export type SignInResponseDto = {
+  errors: string[];
+};

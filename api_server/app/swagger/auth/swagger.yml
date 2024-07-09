@@ -81,6 +81,29 @@ paths:
                   - statusCode
                   - message
                   - error
+  /auth/signIn:
+    post:
+      operationId: signIn
+      description: ログイン
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInDto'
+      responses:
+        '200':
+          description: ログイン成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignInResponseDto'
+        '400':
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponseDto'
 components:
   schemas:
     SignUpDto:
@@ -133,3 +156,31 @@ components:
           type: boolean
       required:
         - result
+    SignInDto:
+      description: Sign in params.
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@example.com
+        password:
+          type: string
+        errors:
+          type: array
+          items:
+            description: バリデーションエラーメッセージ
+            type: string
+      required:
+        - email
+        - password
+    SignInResponseDto:
+      description: ログインのレスポンス
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            description: バリデーションエラーメッセージ
+            type: string
+      required:
+        - errors

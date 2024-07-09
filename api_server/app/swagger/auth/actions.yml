@@ -44,6 +44,29 @@ paths:
                 $ref: '#/components/schemas/SignUpResponseDto'
         '400':
           $ref: '../errors.yml#responses/400'
+  /auth/signIn:
+    post:
+      operationId: signIn
+      description: ログイン
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInDto'
+      responses:
+        '200':
+          description: ログイン成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignInResponseDto'
+        '400':
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponseDto'
 
 components:
   schemas:
@@ -53,3 +76,7 @@ components:
       $ref: './components/validate_sign_up_response.dto.yml'
     SignUpResponseDto:
       $ref: './components/sign_up_response.dto.yml'
+    SignInDto:
+      $ref: './components/sign_in.dto.yml'
+    SignInResponseDto:
+      $ref: './components/sign_in_response.dto.yml'
