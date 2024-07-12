@@ -342,7 +342,6 @@ components:
           nullable: true
         bookImage:
           type: string
-          format: bite
           nullable: true
         learnedContent:
           type: string
@@ -372,7 +371,6 @@ components:
           nullable: true
         bookImage:
           type: string
-          format: bite
           nullable: true
         learnedContent:
           type: string
@@ -399,7 +397,6 @@ components:
               nullable: true
             bookImage:
               type: string
-              format: bite
               nullable: true
             learnedContent:
               type: string
@@ -436,7 +433,6 @@ components:
             nullable: true
           bookImage:
             type: string
-            format: bite
             nullable: true
           learnedContent:
             type: string
@@ -468,7 +464,6 @@ components:
           nullable: true
         bookImage:
           type: string
-          format: bite
           nullable: true
         learnedContent:
           type: string
@@ -523,7 +518,6 @@ components:
           nullable: true
         bookImage:
           type: string
-          format: bite
           nullable: true
         learnedContent:
           type: string

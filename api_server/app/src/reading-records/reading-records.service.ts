@@ -11,10 +11,11 @@ export class ReadingRecordsService {
     private readonly googleCloud: GoogleCloudService,
   ) {}
 
-  async create(createReadingRecordDto: CreateReadingRecordDto) {
+  async create(createReadingRecordDto: CreateReadingRecordDto, userId: number) {
+    const input = { userId, ...createReadingRecordDto };
     // TODO: transaction入れる
     const readingRecord = await this.prisma.readingRecord.create({
-      data: createReadingRecordDto,
+      data: input,
     });
     if (!createReadingRecordDto.bookImage) return readingRecord;
 
@@ -28,8 +29,10 @@ export class ReadingRecordsService {
     });
   }
 
-  async findAll() {
-    const readingRecords = await this.prisma.readingRecord.findMany();
+  async findAll(userId: number) {
+    const readingRecords = await this.prisma.readingRecord.findMany({
+      where: { userId },
+    });
     if (!readingRecords) return readingRecords;
 
     return Promise.all(
@@ -44,10 +47,11 @@ export class ReadingRecordsService {
     );
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, userId: number) {
     const readingRecord = await this.prisma.readingRecord.findFirst({
       where: {
         id,
+        userId,
       },
     });
     if (!readingRecord) {
@@ -61,16 +65,20 @@ export class ReadingRecordsService {
     return { ...readingRecord };
   }
 
-  async update(id: number, updateReadingRecordDto: UpdateReadingRecordDto) {
+  async update(
+    id: number,
+    updateReadingRecordDto: UpdateReadingRecordDto,
+    userId: number,
+  ) {
     return await this.prisma.readingRecord.update({
-      where: { id },
+      where: { id, userId },
       data: updateReadingRecordDto,
     });
   }
 
-  async remove(id: number) {
+  async remove(id: number, userId: number) {
     return await this.prisma.readingRecord.delete({
-      where: { id },
+      where: { id, userId },
     });
   }
 }

@@ -1,13 +1,9 @@
 import aspida from '@aspida/fetch';
-import api from '@/api/reading_records/$api';
-import { getAllCookies } from '@/lib/getAllCookies';
+import api from '@/api/auth/$api';
 
-export const getReadingRecordApiClient = () => {
+export const getAuthApiClient = () => {
   const baseFetchConditions = {
     baseURL: process.env.BASE_API_URL,
-    headers: {
-      cookie: getAllCookies(),
-    },
     throwHttpErrors: true,
   };
 
