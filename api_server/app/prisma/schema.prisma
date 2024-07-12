@@ -38,6 +38,8 @@ model SubTodo {
 
 model ReadingRecord {
   id             Int      @id @default(autoincrement())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int      @map("user_id")
   title          String   @db.VarChar(255)
   author         String?  @db.VarChar(255)
   learnedContent String?  @map("learned_content") @db.Text
@@ -50,12 +52,13 @@ model ReadingRecord {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(255)
-  email     String   @db.VarChar(255)
-  password  String   @db.Text
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(0)
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(255)
+  email         String          @db.VarChar(255)
+  password      String          @db.Text
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt     DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamp(0)
+  readingRecord ReadingRecord[]
 
   @@map("users")
 }
