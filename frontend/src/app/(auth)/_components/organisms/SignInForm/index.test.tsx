@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import * as PostSignIn from '../../../_actions/postSignIn';
+import * as RedirectToTopPage from '../../../_actions/redirectToTopPage';
 import SignInForm from '.';
 
 // userのセットアップ
@@ -28,7 +29,16 @@ jest.mock('../../../_actions/postSignIn', () => {
 });
 let postSignInSpy: jest.SpyInstance<unknown>;
 
-describe('reading_records/_components/organisms/SignUpInput', () => {
+jest.mock('../../../_actions/redirectToTopPage', () => {
+  const redirectToTopPage = jest.requireActual('../../../_actions/redirectToTopPage');
+  return {
+    __esModule: true,
+    ...redirectToTopPage,
+  };
+});
+let redirectToTopPageSpy: jest.SpyInstance<unknown>;
+
+describe('reading_records/_components/organisms/SignInForm', () => {
   afterEach(() => {
     push.mockRestore();
   });
@@ -45,6 +55,15 @@ describe('reading_records/_components/organisms/SignUpInput', () => {
   describe('バリデーションエラーがない場合', () => {
     beforeEach(() => {
       postSignInSpy = jest.spyOn(PostSignIn, 'postSignIn').mockResolvedValue({ errors: [] });
+      // mock化すると、never型で渡す必要があり、やむなく型キャストしている
+      redirectToTopPageSpy = jest
+        .spyOn(RedirectToTopPage, 'redirectToTopPage')
+        .mockReturnValue(jest.fn() as never);
+    });
+
+    afterEach(() => {
+      postSignInSpy.mockRestore();
+      redirectToTopPageSpy.mockRestore();
     });
 
     it('確認画面へ遷移できる', async () => {
@@ -61,7 +80,7 @@ describe('reading_records/_components/organisms/SignUpInput', () => {
       await user.click(submitButtonElement);
 
       await waitFor(() => {
-        expect(push).toHaveBeenCalled();
+        expect(redirectToTopPageSpy).toHaveBeenCalled();
       });
     });
   });
@@ -71,6 +90,14 @@ describe('reading_records/_components/organisms/SignUpInput', () => {
       postSignInSpy = jest
         .spyOn(PostSignIn, 'postSignIn')
         .mockResolvedValue({ errors: ['メールアドレス、またはパスワードが異なります。'] });
+      redirectToTopPageSpy = jest
+        .spyOn(RedirectToTopPage, 'redirectToTopPage')
+        .mockReturnValue(jest.fn() as never);
+    });
+
+    afterEach(() => {
+      postSignInSpy.mockRestore();
+      redirectToTopPageSpy.mockRestore();
     });
 
     it('確認画面へ遷移せず、パリデーションエラーが表示される', async () => {
@@ -80,7 +107,7 @@ describe('reading_records/_components/organisms/SignUpInput', () => {
       await user.click(submitButtonElement);
 
       await waitFor(() => {
-        expect(push).not.toHaveBeenCalled();
+        expect(redirectToTopPageSpy).not.toHaveBeenCalled();
         expect(
           screen.getByText('メールアドレス、またはパスワードが異なります。'),
         ).toBeInTheDocument();

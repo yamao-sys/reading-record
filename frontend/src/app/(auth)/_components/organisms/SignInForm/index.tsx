@@ -27,7 +27,7 @@ export default function SignInForm() {
         setValidationErrors(response.errors);
         setInputPassword('');
       } else {
-        await redirectToTopPage();
+        redirectToTopPage();
       }
     } catch (error) {
       // TODO: エラーハンドリング

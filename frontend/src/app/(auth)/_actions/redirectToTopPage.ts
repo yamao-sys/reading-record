@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 
-export const redirectToTopPage = async () => {
+export const redirectToTopPage = () => {
   // TODO: トップページのパスを定数化
   redirect('/reading_records');
 };
