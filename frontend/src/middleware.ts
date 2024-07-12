@@ -19,7 +19,6 @@ export async function middleware(request: NextRequest) {
   }
   // NOTE: トークンの有効期限切れの場合はログイン画面にリダイレクト
   if (response.status === 401) {
-    console.log('4014');
     return NextResponse.redirect(new URL('/sign_in', request.url));
   }
   // NOTE: TOPの向き先 認証済みの場合は読書記録一覧、そうでなければログイン画面へ
