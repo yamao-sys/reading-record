@@ -1,8 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { postSignIn } from '../../../_actions/postSignIn';
+import { redirectToTopPage } from '../../../_actions/redirectToTopPage';
 
 export default function SignInForm() {
   const [inputEmail, setInputEmail] = useState('');
@@ -14,7 +14,6 @@ export default function SignInForm() {
   const handleChangeInputPassword = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputPassword(e.target.value);
 
-  const router = useRouter();
   const handleSignIn = async () => {
     setValidationErrors([]);
 
@@ -24,12 +23,11 @@ export default function SignInForm() {
         password: inputPassword,
       });
 
-      if (!!response.errors.length) {
+      if (!!response?.errors.length) {
         setValidationErrors(response.errors);
         setInputPassword('');
       } else {
-        // TODO: ログインリダイレクト対応時にURLを定数化
-        router.push('/reading_records');
+        await redirectToTopPage();
       }
     } catch (error) {
       // TODO: エラーハンドリング
