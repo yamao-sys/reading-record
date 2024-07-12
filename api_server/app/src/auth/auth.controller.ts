@@ -10,8 +10,8 @@ import {
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/sign_up.dto';
-import { formatValidationErrors } from '../../lib/formatValidationErrors';
 import { SignInDto } from './dto/sign_in.dto';
+import { formatValidationErrors } from 'src/lib/formatValidationErrors';
 
 @Controller('auth')
 export class AuthController {
