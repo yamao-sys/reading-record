@@ -6,12 +6,16 @@ import {
   HttpException,
   HttpStatus,
   Res,
+  Get,
+  Req,
+  InternalServerErrorException,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/sign_up.dto';
 import { SignInDto } from './dto/sign_in.dto';
 import { formatValidationErrors } from 'src/lib/formatValidationErrors';
+import { JsonWebTokenError, TokenExpiredError } from '@nestjs/jwt';
 
 @Controller('auth')
 export class AuthController {
@@ -53,6 +57,20 @@ export class AuthController {
 
     const token = await this.authService.signIn(user);
     response.cookie('token', token).send({ errors });
+  }
+
+  @Get('checkSignedIn')
+  async checkSignedIn(@Req() request: Request) {
+    try {
+      await this.authService.verify(request.cookies['token']);
+      return true;
+    } catch (e) {
+      // NOTE: トークンエラーの場合は要認証とみなしfalseを返す
+      if (e instanceof JsonWebTokenError || e instanceof TokenExpiredError) {
+        return false;
+      }
+      throw new InternalServerErrorException(e);
+    }
   }
 
   private async validate(signUpDto: SignUpDto) {
