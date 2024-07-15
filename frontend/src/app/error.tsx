@@ -2,6 +2,7 @@
 
 import { HTTPError } from '@aspida/fetch';
 import { redirectToTopPage } from './_actions/redirectToTopPage';
+import { BaseButton } from '@/components/atoms/BaseButton';
 
 type Props = {
   error: (HTTPError | Error) & { digest?: string };
@@ -16,12 +17,7 @@ const ErrorPage = ({ error }: Props) => {
         <div className='font-bold'>500 Error</div>
         <div className='font-bold'>{error.message}</div>
         <div className='mt-2'>
-          <button
-            className='p-2 border-gray-500 bg-gray-500 rounded-xl text-white text-xs lg:text-sm'
-            onClick={handleBackToTopPage}
-          >
-            TOPへ戻る
-          </button>
+          <BaseButton labelText='TOPへ戻る' color='gray' onClick={handleBackToTopPage} />
         </div>
       </div>
     </>
