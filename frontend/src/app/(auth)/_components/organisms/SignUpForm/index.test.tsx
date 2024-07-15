@@ -11,7 +11,7 @@ jest.mock('../../../_contexts/SignUpContext', () => {
 });
 let signUpContextSpy: jest.SpyInstance<unknown>;
 
-describe('reading_records/_components/organisms/SignUpInput', () => {
+describe('(auth)/_components/organisms/SignUpInput', () => {
   beforeEach(() => {
     signUpContextSpy = jest.spyOn(SignUpContext, 'useSignUpContext').mockReturnValue({
       inputName: 'test_name',

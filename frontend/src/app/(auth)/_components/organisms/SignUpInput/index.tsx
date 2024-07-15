@@ -4,7 +4,11 @@ import { useState } from 'react';
 import { postValidateSignUp } from '../../../_actions/postValidateSignUp';
 import { useSignUpContext } from '../../../_contexts/SignUpContext';
 import { PhaseType } from '../../../sign_up/types';
-import { BaseLayout } from '../BaseLayout';
+import { SignUpBaseLayout } from '../SignUpBaseLayout';
+import { BaseFormBox } from '@/components/atoms/BaseFormBox';
+import { InputForm } from '@/components/atoms/InputForm';
+import { SubmitButton } from '@/components/molecules/SubmitButton';
+import { ValidationErrors } from '@/components/molecules/ValidationErrors';
 
 type Props = {
   togglePhase: (newPhase: PhaseType) => void;
@@ -77,116 +81,55 @@ export const SignUpInput = ({ togglePhase }: Props) => {
 
   return (
     <>
-      <BaseLayout phase='form'>
-        <div>
-          <label
-            htmlFor='name'
-            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-          >
-            <span className='font-bold'>ユーザ名</span>
-          </label>
-          <input
-            id='name'
-            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+      <SignUpBaseLayout phase='form'>
+        <BaseFormBox needsMargin={false}>
+          <InputForm
+            labelId='name'
+            labelText='ユーザ名'
             value={inputName}
             onChange={handleChangeInputName}
           />
-          {!!nameValidationErrors.length && (
-            <div className='w-full pt-5'>
-              {nameValidationErrors.map((message, i) => (
-                <p key={i} className='text-red-400'>
-                  {message}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
+          {!!nameValidationErrors.length && <ValidationErrors messages={nameValidationErrors} />}
+        </BaseFormBox>
 
-        <div className='mt-8'>
-          <label
-            htmlFor='email'
-            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-          >
-            <span className='font-bold'>メールアドレス</span>
-          </label>
-          <input
-            id='email'
-            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+        <BaseFormBox>
+          <InputForm
+            labelId='email'
+            labelText='メールアドレス'
             value={inputEmail}
             onChange={handleChangeInputEmail}
           />
-          {!!emailValidationErrors.length && (
-            <div className='w-full pt-5'>
-              {emailValidationErrors.map((message, i) => (
-                <p key={i} className='text-red-400'>
-                  {message}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
+          {!!emailValidationErrors.length && <ValidationErrors messages={emailValidationErrors} />}
+        </BaseFormBox>
 
-        <div className='mt-8'>
-          <label
-            htmlFor='password'
-            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-          >
-            <span className='font-bold'>パスワード</span>
-          </label>
-          <input
-            id='password'
+        <BaseFormBox>
+          <InputForm
+            labelId='password'
+            labelText='パスワード'
             type='password'
-            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             value={inputPassword}
             onChange={handleChangeInputPassword}
           />
           {!!passwordValidationErrors.length && (
-            <div className='w-full pt-5'>
-              {passwordValidationErrors.map((message, i) => (
-                <p key={i} className='text-red-400'>
-                  {message}
-                </p>
-              ))}
-            </div>
+            <ValidationErrors messages={passwordValidationErrors} />
           )}
-        </div>
+        </BaseFormBox>
 
-        <div className='mt-8'>
-          <label
-            htmlFor='password_confirm'
-            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-          >
-            <span className='font-bold'>パスワード確認用</span>
-          </label>
-          <input
-            id='password_confirm'
+        <BaseFormBox>
+          <InputForm
+            labelId='password-confirm'
+            labelText='パスワード確認用'
             type='password'
-            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             value={inputPasswordConfirm}
             onChange={handleChangeInputPasswordConfirm}
           />
           {!!passwordConfirmValidationErrors.length && (
-            <div className='w-full pt-5'>
-              {passwordConfirmValidationErrors.map((message, i) => (
-                <p key={i} className='text-red-400'>
-                  {message}
-                </p>
-              ))}
-            </div>
+            <ValidationErrors messages={passwordConfirmValidationErrors} />
           )}
-        </div>
+        </BaseFormBox>
 
-        <div className='w-full flex justify-center'>
-          <div className='mt-16'>
-            <button
-              className='py-2 px-8 border-green-500 bg-green-500 rounded-xl text-white'
-              onClick={handleValidateSignUp}
-            >
-              確認画面へ
-            </button>
-          </div>
-        </div>
-      </BaseLayout>
+        <SubmitButton labelText='確認画面へ' color='green' onClick={handleValidateSignUp} />
+      </SignUpBaseLayout>
     </>
   );
 };

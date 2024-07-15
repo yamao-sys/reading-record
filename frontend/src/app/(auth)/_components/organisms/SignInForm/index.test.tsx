@@ -38,7 +38,7 @@ jest.mock('../../../_actions/redirectToTopPage', () => {
 });
 let redirectToTopPageSpy: jest.SpyInstance<unknown>;
 
-describe('reading_records/_components/organisms/SignInForm', () => {
+describe('(auth)/_components/organisms/SignInForm', () => {
   afterEach(() => {
     push.mockRestore();
   });
