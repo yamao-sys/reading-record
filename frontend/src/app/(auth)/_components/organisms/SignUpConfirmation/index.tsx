@@ -3,7 +3,8 @@
 import { postSignUp } from '../../../_actions/postSignUp';
 import { useSignUpContext } from '../../../_contexts/SignUpContext';
 import { PhaseType } from '../../../sign_up/types';
-import { BaseLayout } from '../BaseLayout';
+import { SignUpBaseLayout } from '../SignUpBaseLayout';
+import { BaseButton } from '@/components/atoms/BaseButton';
 
 type Props = {
   togglePhase: (newPhase: PhaseType) => void;
@@ -30,7 +31,7 @@ export const SignUpConfirmation = ({ togglePhase }: Props) => {
 
   return (
     <>
-      <BaseLayout phase='confirm'>
+      <SignUpBaseLayout phase='confirm'>
         <div className='flex w-full justify-around'>
           <div className='w-1/2 align-middle'>ユーザ名: </div>
           <div className='w-1/2 align-middle'>{inputName}</div>
@@ -44,20 +45,10 @@ export const SignUpConfirmation = ({ togglePhase }: Props) => {
           <div className='w-1/2 align-middle'>{'*'.repeat(inputPassword.length)}</div>
         </div>
         <div className='flex w-full justify-around mt-16'>
-          <button
-            className='py-2 px-8 border-gray-500 bg-gray-500 rounded-xl text-white'
-            onClick={handleBackPage}
-          >
-            入力へ戻る
-          </button>
-          <button
-            className='py-2 px-8 border-green-500 bg-green-500 rounded-xl text-white'
-            onClick={handleSignUp}
-          >
-            登録する
-          </button>
+          <BaseButton labelText='入力へ戻る' color='gray' onClick={handleBackPage} />
+          <BaseButton labelText='登録する' color='green' onClick={handleSignUp} />
         </div>
-      </BaseLayout>
+      </SignUpBaseLayout>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { SignUpThanks } from '.';
 
-describe('reading_records/_components/organisms/SignUpInput', () => {
+describe('(auth)/_components/organisms/SignUpInput', () => {
   it('フォームが表示されること', () => {
     render(<SignUpThanks />);
 

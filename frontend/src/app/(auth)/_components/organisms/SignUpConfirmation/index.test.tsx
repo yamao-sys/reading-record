@@ -40,7 +40,7 @@ let signUpContextSpy: jest.SpyInstance<unknown>;
 
 const togglePhase = jest.fn();
 
-describe('reading_records/_components/organisms/SignUpConfirm', () => {
+describe('(auth)/_components/organisms/SignUpConfirm', () => {
   beforeEach(() => {
     signUpContextSpy = jest.spyOn(SignUpContext, 'useSignUpContext').mockReturnValue({
       inputName: 'test_name',
