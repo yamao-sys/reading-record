@@ -104,6 +104,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponseDto'
+  /auth/checkSignedIn:
+    get:
+      operationId: checkSignedIn
+      description: 認証済みかどうかをチェック
+      parameters: []
+      responses:
+        '200':
+          description: 認証済みかどうかチェック成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/checkSignedInResponseDto'
 components:
   schemas:
     SignUpDto:
@@ -184,3 +196,6 @@ components:
             type: string
       required:
         - errors
+    checkSignedInResponseDto:
+      description: 認証済みかどうかチェックのレスポンスDTO
+      type: boolean

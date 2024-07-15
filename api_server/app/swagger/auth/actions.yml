@@ -67,6 +67,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponseDto'
+  /auth/checkSignedIn:
+    get:
+      operationId: checkSignedIn
+      description: 認証済みかどうかをチェック
+      parameters: []
+      responses:
+        '200':
+          description: 認証済みかどうかチェック成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/checkSignedInResponseDto'
 
 components:
   schemas:
@@ -80,3 +92,5 @@ components:
       $ref: './components/sign_in.dto.yml'
     SignInResponseDto:
       $ref: './components/sign_in_response.dto.yml'
+    checkSignedInResponseDto:
+      $ref: './components/check_signed_in_response.dto.yml'

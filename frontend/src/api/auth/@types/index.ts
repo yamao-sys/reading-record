@@ -33,3 +33,6 @@ export type SignInDto = {
 export type SignInResponseDto = {
   errors: string[];
 };
+
+/** 認証済みかどうかチェックのレスポンスDTO */
+export type CheckSignedInResponseDto = boolean;
