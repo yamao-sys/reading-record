@@ -3,7 +3,9 @@
     "next/core-web-vitals",
     "plugin:import/recommended",
     "plugin:import/warnings",
-    "prettier"
+    "prettier",
+    "plugin:storybook/recommended",
+    "plugin:storybook/recommended"
   ],
   "rules": {
     "import/order": [
@@ -17,9 +19,14 @@
   },
   "overrides": [
     {
-      "files": ["*.{ts,tsx}", "!log.js"],
+      "files": [
+        "*.{ts,tsx}",
+        "!log.js"
+      ],
       "rules": {
-        "no-console": ["error"]
+        "no-console": [
+          "error"
+        ]
       }
     }
   ]

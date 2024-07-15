@@ -1,0 +1,8 @@
+{
+  "type": "modules",
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "esbuild": "^0.18.12",
+    "esbuild-register": "^3.4.2"
+  }
+}
