@@ -1,11 +1,12 @@
 'use client';
 
-import Snackbar from '@mui/material/Snackbar';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { deleteReadingRecord } from '../../../_actions/deleteReadingRecord';
+import { BookImage } from '../../molecules/BookImage';
 import { FetchAllReadingRecordResponseDto } from '@/api/reading_records/@types';
+import { BaseButton } from '@/components/atoms/BaseButton';
+import { BaseSnackbar } from '@/components/atoms/BaseSnackbar';
 
 type ReadingRecordListsType = {
   readingRecords: FetchAllReadingRecordResponseDto;
@@ -40,46 +41,36 @@ export default function ReadingRecordLists({ readingRecords }: ReadingRecordList
 
   return (
     <>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        ContentProps={{
-          sx: {
-            backgroundColor: 'success.light',
-          },
-        }}
-        open={snackbarState}
-        onClose={handleClose}
-        message='deleted successfully!!'
-        key='topcenter'
-        autoHideDuration={1200}
-      />
+      <BaseSnackbar open={snackbarState} onClose={handleClose} message='deleted successfully!!' />
+
       {!!displayableReadingRecords.length &&
         displayableReadingRecords.map((readingRecord) => (
           <div
             key={readingRecord.id}
             className='[&:not(:first-child)]:mt-8 border-2 border-gray-900 flex'
           >
-            <div className='flex w-1/4 justify-center'>
-              <div className='w-24 h-32 md:w-36 md:h-48 relative'>
-                <Image src={readingRecord.bookImage || '/noimage.png'} alt='書籍画像' fill />
-              </div>
-            </div>
+            <BookImage
+              src={readingRecord.bookImage || '/noimage.png'}
+              alt='書籍画像'
+              widthStyle='w-1/4'
+              additionalImageStyle='md:w-36 md:h-48'
+            />
             <div className='w-3/4 h-36 md:h-48 p-2'>
               <div className='text-lg md:text-3xl break-words'>{readingRecord.title}</div>
               <div className='mt-2 text-xs'>登録日: {readingRecord.createdAt}</div>
               <div className='sm:w-1/2 lg:w-2/5 mt-4 flex'>
-                <button
-                  className='p-2 border-green-500 bg-green-500 rounded-xl text-white text-xs lg:text-sm'
+                <BaseButton
+                  labelText='編集する'
+                  color='green'
+                  additionalStyle='text-xs lg:text-sm'
                   onClick={() => handleRouteToEditPage(readingRecord.id)}
-                >
-                  編集する
-                </button>
-                <button
-                  className='p-2 ml-4 border-red-500 bg-red-500 rounded-xl text-white text-xs lg:text-sm'
+                />
+                <BaseButton
+                  labelText='削除する'
+                  color='red'
+                  additionalStyle='ml-4 text-xs lg:text-sm'
                   onClick={() => handleDeleteReadingRecord(readingRecord.id)}
-                >
-                  削除する
-                </button>
+                />
               </div>
             </div>
           </div>
