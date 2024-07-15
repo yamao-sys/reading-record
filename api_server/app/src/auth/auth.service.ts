@@ -57,4 +57,10 @@ export class AuthService {
     const payload: JwtPayload = { userId: String(user.id), email: user.email };
     return await this.jwtService.signAsync(payload);
   }
+
+  async verify(token: string) {
+    return await this.jwtService.verifyAsync(token, {
+      secret: process.env.JWT_SECRET,
+    });
+  }
 }

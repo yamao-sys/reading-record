@@ -224,4 +224,44 @@ describe('AuthController (e2e)', () => {
         });
     });
   });
+
+  describe('/auth/checkSignedIn (GET)', () => {
+    beforeAll(async () => {
+      await prisma.user.create({
+        data: {
+          name: 'test_name',
+          email: 'test@example.com',
+          password: await bcrypt.hash('Passwor1', 10),
+        },
+      });
+    });
+
+    it('認証済みの時はtrueを返すこと', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/auth/signIn')
+        .send({
+          email: 'test@example.com',
+          password: 'Passwor1',
+        })
+        .expect(201)
+        .expect({
+          errors: [],
+        });
+      const cookie = res.get('Set-Cookie') ?? '';
+      if (cookie === '') throw new Error();
+
+      await request(app.getHttpServer())
+        .get('/auth/checkSignedIn')
+        .set('Cookie', cookie[0])
+        .expect(200)
+        .expect('true');
+    });
+
+    it('認証済みではない時はfalseを返すこと', async () => {
+      await request(app.getHttpServer())
+        .get('/auth/checkSignedIn')
+        .expect(200)
+        .expect('false');
+    });
+  });
 });

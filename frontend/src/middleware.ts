@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { checkSignedIn } from './app/_actions/checkSignedIn';
 
 const needsAuthPath = ['/reading_records'];
 
@@ -11,19 +12,20 @@ export async function middleware(request: NextRequest) {
       headers: request.headers,
     },
   });
-  const hasCookies = request.cookies.has('token');
+  // NOTE: ミドルウェアによるチェックが不要なページは、認証チェックなど不要なチェック処理が入ることを防ぐため、早期リターン
+  if (!needsAuth(request.nextUrl.pathname) && request.nextUrl.pathname !== '/') {
+    return response;
+  }
+
+  const isSignedIn = await checkSignedIn();
 
   // NOTE: 要認証ページで認証済みでなければログインページへ
-  if (needsAuth(request.nextUrl.pathname) && !hasCookies) {
-    return NextResponse.redirect(new URL('/sign_in', request.url));
-  }
-  // NOTE: トークンの有効期限切れの場合はログイン画面にリダイレクト
-  if (response.status === 401) {
+  if (needsAuth(request.nextUrl.pathname) && !isSignedIn) {
     return NextResponse.redirect(new URL('/sign_in', request.url));
   }
   // NOTE: TOPの向き先 認証済みの場合は読書記録一覧、そうでなければログイン画面へ
   if (request.nextUrl.pathname === '/') {
-    if (hasCookies) {
+    if (isSignedIn) {
       return NextResponse.redirect(new URL('/reading_records', request.url));
     }
 
