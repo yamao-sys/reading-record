@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { BaseButton } from '.';
 import { fn } from '@storybook/test';
+import { BaseButton } from '.';
 
 type Props = {
   labelText: string;

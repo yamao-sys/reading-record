@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { BaseSnackbar } from '.';
 import { fn } from '@storybook/test';
+import { BaseSnackbar } from '.';
 
 type Props = {
   open: boolean;
@@ -18,7 +18,7 @@ export default {
 
 type Story = StoryObj<typeof BaseSnackbar>;
 
-export const defaultFormBox: Story = {
+export const DefaultFormBox: Story = {
   args: {
     open: true,
     onClose: fn(),

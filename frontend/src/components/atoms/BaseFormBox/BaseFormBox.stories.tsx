@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { BaseFormBox } from '.';
 import { InputForm } from '../InputForm';
+import { BaseFormBox } from '.';
 
 type Props = {
   needsMargin?: boolean;
@@ -16,20 +16,20 @@ export default {
 
 type Story = StoryObj<typeof BaseFormBox>;
 
-export const defaultFormBox: Story = {
+export const DefaultFormBox: Story = {
   args: {
     children: (
       <InputForm
         labelId='email'
         labelText='メールアドレス'
         value='test@example.com'
-        onChange={() => console.log('test')}
+        onChange={() => console.log('test')} // eslint-disable-line no-console
       />
     ),
   },
 };
 
-export const includeMarginFormBox: Story = {
+export const IncludeMarginFormBox: Story = {
   args: {
     needsMargin: true,
     children: (
@@ -37,7 +37,7 @@ export const includeMarginFormBox: Story = {
         labelId='email'
         labelText='メールアドレス'
         value='test@example.com'
-        onChange={() => console.log('test')}
+        onChange={() => console.log('test')} // eslint-disable-line no-console
       />
     ),
   },

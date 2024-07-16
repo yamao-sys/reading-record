@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { TextAreaForm } from '.';
 import { fn } from '@storybook/test';
+import { TextAreaForm } from '.';
 
 type Props = { labelText: string; labelId: string } & JSX.IntrinsicElements['textarea'];
 export default {
@@ -13,7 +13,7 @@ export default {
 
 type Story = StoryObj<typeof TextAreaForm>;
 
-export const defaultTextAreaForm: Story = {
+export const DefaultTextAreaForm: Story = {
   args: {
     labelId: 'default-textarea',
     labelText: 'デフォルト テキストエリア',

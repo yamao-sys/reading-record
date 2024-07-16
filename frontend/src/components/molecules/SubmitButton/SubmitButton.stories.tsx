@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { SubmitButton } from '.';
 import { fn } from '@storybook/test';
+import { SubmitButton } from '.';
 
 type Props = {
   labelText: string;
@@ -17,7 +17,7 @@ export default {
 
 type Story = StoryObj<typeof SubmitButton>;
 
-export const successSubmitButton: Story = {
+export const SuccessSubmitButton: Story = {
   args: {
     labelText: '保存する',
     color: 'green',
@@ -25,7 +25,7 @@ export const successSubmitButton: Story = {
   },
 };
 
-export const defaultSubmitButton: Story = {
+export const DefaultSubmitButton: Story = {
   args: {
     labelText: '戻る',
     color: 'gray',
@@ -33,7 +33,7 @@ export const defaultSubmitButton: Story = {
   },
 };
 
-export const dengerSubmitButton: Story = {
+export const DangerSubmitButton: Story = {
   args: {
     labelText: '削除する',
     color: 'red',

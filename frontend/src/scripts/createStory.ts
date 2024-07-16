@@ -1,7 +1,7 @@
+import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { Project } from 'ts-morph';
-import { exec } from 'child_process';
 
 const componentsDir = path.join(__dirname, '../components');
 
@@ -190,23 +190,23 @@ const createStoryFiles = (dir: string) => {
   });
 };
 
-console.log('Creating story files...');
+console.log('Creating story files...'); // eslint-disable-line no-console
 createStoryFiles(componentsDir);
-console.log('Done!');
+console.log('Done!'); // eslint-disable-line no-console
 
-console.log('Running Prettier...');
+console.log('Running Prettier...'); // eslint-disable-line no-console
 createdStoryFileNames.forEach((fileName) => {
   exec(`prettier --write ${fileName}`, (error: any, stdout: any, stderr: any) => {
     if (error) {
-      console.log(`error: ${error.message}`);
+      console.log(`error: ${error.message}`); // eslint-disable-line no-console
       return;
     }
     if (stderr) {
-      console.log(`stderr: ${stderr}`);
+      console.log(`stderr: ${stderr}`); // eslint-disable-line no-console
       return;
     }
-    console.log(`stdout: ${stdout}`);
+    console.log(`stdout: ${stdout}`); // eslint-disable-line no-console
   });
 });
 
-console.log('Prettier completed!');
+console.log('Prettier completed!'); // eslint-disable-line no-console

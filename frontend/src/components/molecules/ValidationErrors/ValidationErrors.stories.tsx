@@ -14,7 +14,7 @@ export default {
 
 type Story = StoryObj<typeof ValidationErrors>;
 
-export const successSubmitButton: Story = {
+export const SuccessSubmitButton: Story = {
   args: {
     messages: ['xxは必須項目です。', 'xxは8文字以上20文字以内での入力をお願いします。'],
   },
