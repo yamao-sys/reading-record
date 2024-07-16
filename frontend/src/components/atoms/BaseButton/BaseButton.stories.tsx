@@ -13,7 +13,8 @@ export default {
   component: BaseButton,
   tags: ['autodocs'],
   args: {} as Props,
-} as unknown as Meta;
+  // Add your own control here
+} as Meta;
 
 type Story = StoryObj<typeof BaseButton>;
 
