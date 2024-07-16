@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 services:
   backend:
     build: ./api_server
@@ -14,11 +14,11 @@ services:
     image: mysql:8.0.28
     container_name: db
     ports:
-      - "3306:3306"
+      - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: reading_record
-      TZ: "Asia/Tokyo"
+      TZ: 'Asia/Tokyo'
     volumes:
       - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./mysql:/var/lib/mysql
@@ -40,6 +40,7 @@ services:
       # - /tmp/.X11-unix:/tmp/.X11-unix
     ports:
       - 3002:3000
+      - 6007:6006
     environment:
       - DISPLAY=0
       - WATCHPACK_POLLING=true
