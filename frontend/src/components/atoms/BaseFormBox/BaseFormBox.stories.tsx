@@ -11,20 +11,19 @@ export default {
   component: BaseFormBox,
   tags: ['autodocs'],
   args: {} as Props,
-  // Add your own control here
-} as Meta;
+} as unknown as Meta;
 
 type Story = StoryObj<typeof BaseFormBox>;
 
 export const defaultFormBox: Story = {
   args: {
-    children: <input type='text' />,
+    children: "<><input type='text' /></>",
   },
 };
 
 export const includeMarginFormBox: Story = {
   args: {
     needsMargin: true,
-    children: <input type='text' />,
+    children: "<><input type='text' /></>",
   },
 };

@@ -12,8 +12,7 @@ export default {
   component: SubmitButton,
   tags: ['autodocs'],
   args: {} as Props,
-  // Add your own control here
-} as Meta;
+} as unknown as Meta;
 
 type Story = StoryObj<typeof SubmitButton>;
 

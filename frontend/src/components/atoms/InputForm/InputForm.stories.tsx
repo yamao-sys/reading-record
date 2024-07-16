@@ -8,8 +8,7 @@ export default {
   component: InputForm,
   tags: ['autodocs'],
   args: {} as Props,
-  // Add your own control here
-} as Meta;
+} as unknown as Meta;
 
 type Story = StoryObj<typeof InputForm>;
 

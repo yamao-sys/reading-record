@@ -13,8 +13,7 @@ export default {
   component: BaseSnackbar,
   tags: ['autodocs'],
   args: {} as Props,
-  // Add your own control here
-} as Meta;
+} as unknown as Meta;
 
 type Story = StoryObj<typeof BaseSnackbar>;
 
