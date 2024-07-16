@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { BaseFormBox } from '.';
+import { InputForm } from '../InputForm';
 
 type Props = {
   needsMargin?: boolean;
@@ -11,20 +12,33 @@ export default {
   component: BaseFormBox,
   tags: ['autodocs'],
   args: {} as Props,
-  // Add your own control here
 } as Meta;
 
 type Story = StoryObj<typeof BaseFormBox>;
 
 export const defaultFormBox: Story = {
   args: {
-    children: <input type='text' />,
+    children: (
+      <InputForm
+        labelId='email'
+        labelText='メールアドレス'
+        value='test@example.com'
+        onChange={() => console.log('test')}
+      />
+    ),
   },
 };
 
 export const includeMarginFormBox: Story = {
   args: {
     needsMargin: true,
-    children: <input type='text' />,
+    children: (
+      <InputForm
+        labelId='email'
+        labelText='メールアドレス'
+        value='test@example.com'
+        onChange={() => console.log('test')}
+      />
+    ),
   },
 };
