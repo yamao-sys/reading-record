@@ -26,6 +26,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: fsouza/fake-gcs-action@v0.4.1
+        with:
+          version: '1.37.2'
+          backend: memory
+          data: reading_record_dev
+          public-host: 'localhost:4443'
+          external-url: 'http://gcs:4443'
+          scheme: http
+
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
