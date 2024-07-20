@@ -40,6 +40,9 @@ jobs:
           external-url: 'http://gcs:4443'
           scheme: http
 
+      - name: Add GCS to /etc/hosts
+        run: echo "127.0.0.1 gcs" | sudo tee -a /etc/hosts
+
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
