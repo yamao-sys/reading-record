@@ -1,4 +1,4 @@
-name: test
+name: backend_test_e2e
 
 on: push
 
@@ -15,7 +15,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: reading_record_test
-          TZ: "Asia/Tokyo"
+          TZ: 'Asia/Tokyo'
 
     steps:
       - uses: actions/checkout@v3
@@ -23,7 +23,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: '20'
 
       - name: Install dependencies
         working-directory: ./api_server/app
