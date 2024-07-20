@@ -28,9 +28,10 @@ jobs:
 
       - name: Set up google cloud server
         uses: fsouza/fake-gcs-action@v0.4.1
+        working-directory: ./api_server/app
         with:
           version: '1.37.2'
-          data: './api_server/app/data/reading_record_dev'
+          data: 'data/reading_record_dev'
           public-host: 'localhost:4443'
           external-url: 'http://gcs:4443'
           scheme: http
