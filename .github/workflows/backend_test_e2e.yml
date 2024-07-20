@@ -20,7 +20,7 @@ jobs:
         image: fsouza/fake-gcs-server
         ports:
           - 4443:4443
-        options: --entrypoint "-scheme http -public-host localhost:4443 -external-url http://gcs:4443 -port-http 8000"
+        options: --entrypoint "/bin/sh -c '-scheme http -public-host localhost:4443 -external-url http://gcs:4443 -port-http 8000'"
     steps:
       - uses: actions/checkout@v3
 
