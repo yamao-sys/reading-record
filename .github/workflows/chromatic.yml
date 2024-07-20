@@ -1,6 +1,14 @@
 name: chromatic
 
-on: push
+on:
+  pull_request:
+    paths:
+      - 'frontend/src/components/**/*.tsx'
+  push:
+    branches:
+      - master
+    paths:
+      - 'frontend/src/components/**/*.tsx'
 
 jobs:
   chromatic-deployment:

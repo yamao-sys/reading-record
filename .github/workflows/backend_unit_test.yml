@@ -1,6 +1,9 @@
 name: backend_unit_test
 
-on: push
+on:
+  pull_request:
+    paths:
+      - 'api_server/app/src/**/*.ts'
 
 jobs:
   test:
