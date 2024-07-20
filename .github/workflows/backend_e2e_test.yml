@@ -26,12 +26,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up google cloud server
+      - name: Prepare storage directory
         working-directory: ./api_server/app
+        run: mkdir data/ && mkdir data/reading_record_dev
+
+      - name: Set up google cloud server
         uses: fsouza/fake-gcs-action@v0.4.1
         with:
           version: '1.37.2'
-          data: 'data/reading_record_dev'
+          data: './api_server/app/data/reading_record_dev'
           public-host: 'localhost:4443'
           external-url: 'http://gcs:4443'
           scheme: http
