@@ -16,12 +16,13 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: reading_record_test
           TZ: 'Asia/Tokyo'
-      fake-gcs-server:
+      gcs:
         image: fsouza/fake-gcs-server
         ports:
           - 4443:4443
         options: >-
-          --health-cmd="-scheme http -public-host localhost:4443 -external-url http://gcs:4443 -port-http 8000 && curl --fail http://localhost:4443/storage/v1/b"
+          -scheme http -public-host ${URL:-localhost}:4443 -external-url http://${URL:-gcs}:4443 -port-http 8000
+          --health-cmd="-curl --fail http://localhost:4443/storage/v1/b"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
