@@ -26,7 +26,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: fsouza/fake-gcs-action@v0.4.1
+      - name: Set up google cloud server
+        uses: fsouza/fake-gcs-action@v0.4.1
         with:
           version: '1.37.2'
           data: reading_record_dev
