@@ -38,6 +38,7 @@
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.2",
     "express-openapi-validator": "^5.1.6",
+    "jest-mock-extended": "^3.0.7",
     "mime": "^4.0.3",
     "mime-types": "^2.1.35",
     "prisma": "^5.14.0",
