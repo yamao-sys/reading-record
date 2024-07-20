@@ -16,6 +16,15 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: reading_record_test
           TZ: 'Asia/Tokyo'
+      fake-gcs-server:
+        image: fsouza/fake-gcs-server
+        ports:
+          - 4443:4443
+        options: >-
+          --health-cmd="curl --fail http://localhost:4443/storage/v1/b"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - uses: actions/checkout@v3
@@ -28,6 +37,20 @@ jobs:
       - name: Install dependencies
         working-directory: ./api_server/app
         run: npm install
+
+      - name: Wait for fake-gcs-server to be ready
+        run: |
+          for i in {1..10}; do
+            curl --fail http://localhost:4443/storage/v1/b && break
+            sleep 1
+          done
+
+      - name: Create GCS bucket
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"name": "reading_record_dev"}' \
+            http://localhost:4443/storage/v1/b
 
       - name: Run E2E tests
         working-directory: ./api_server/app
