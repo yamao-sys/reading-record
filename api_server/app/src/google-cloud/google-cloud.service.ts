@@ -10,7 +10,7 @@ export class GoogleCloudService {
   public async uploadToStorage(fileExternalUrl: string, fileName: string) {
     // 書籍画像のアップロード
     const extention = path.parse(fileExternalUrl).ext;
-    const ext = extention.substring(0, extention.indexOf('?'));
+    const ext = extention.split('?')[0];
     const tmpFilePath = path.join(__dirname, `./image${ext}`);
     const filePath = `${fileName}${ext}`;
 
