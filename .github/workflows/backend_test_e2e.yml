@@ -21,10 +21,7 @@ jobs:
         ports:
           - 4443:4443
         options: >
-          --scheme=http
-          --public-host=localhost:4443
-          --external-url=http://gcs:4443
-          --port-http=8000
+          --entrypoint "-scheme http -public-host localhost:4443 -external-url http://gcs:4443 -port-http 8000"
           --health-cmd="curl --fail http://localhost:4443/storage/v1/b"
           --health-interval=10s
           --health-timeout=5s
