@@ -36,7 +36,7 @@ jobs:
           version: '1.37.2'
           backend: memory
           data: './api_server/app/data'
-          public-host: 'localhost:4443'
+          public-host: 'gcs:4443'
           external-url: 'http://gcs:4443'
           scheme: http
 
