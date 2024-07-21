@@ -56,5 +56,7 @@ jobs:
         working-directory: ./api_server/app
         env:
           IS_CI: true
+          BOOKS_API_ENDPOINT: ${{ secrets.BOOKS_API_ENDPOINT }}
+          BOOKS_API_APPLICATION_ID: ${{ secrets.BOOKS_API_APPLICATION_ID }}
         run: |
           npm run test:e2e
