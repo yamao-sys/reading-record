@@ -6,11 +6,13 @@ import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma.service';
 import { ReadingRecord, User } from '@prisma/client';
 import { resetTestDatabase } from './resetTestDatabase';
+import { GoogleCloudService } from '../src/google-cloud/google-cloud.service';
 
 describe('ReadingRecordsController (e2e)', () => {
   let app: INestApplication;
   let moduleFixture: TestingModule;
   let prisma: PrismaService;
+  let googleCloudService: GoogleCloudService;
 
   let user1: User;
   let user2: User;
@@ -22,6 +24,8 @@ describe('ReadingRecordsController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     prisma = moduleFixture.get<PrismaService>(PrismaService);
+    googleCloudService =
+      moduleFixture.get<GoogleCloudService>(GoogleCloudService);
     await app.init();
 
     user1 = await prisma.user.create({
@@ -49,21 +53,30 @@ describe('ReadingRecordsController (e2e)', () => {
 
   describe('Query findAll()', () => {
     beforeEach(async () => {
-      await prisma.readingRecord.createMany({
-        data: [
-          {
-            title: 'test title1',
-            learnedContent: 'test learned content1',
-            impression: 'test impression1',
-            userId: user1.id,
-          },
-          {
-            title: 'test title2',
-            learnedContent: 'test learned content2',
-            impression: 'test impression2',
-            userId: user2.id,
-          },
-        ],
+      const readingRecord = await prisma.readingRecord.create({
+        data: {
+          title: 'test title1',
+          learnedContent: 'test learned content1',
+          impression: 'test impression1',
+          userId: user1.id,
+        },
+      });
+      const bookImage = await googleCloudService.uploadToStorage(
+        'https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0209/9784297100209.jpg',
+        `book_image/${readingRecord.id}`,
+      );
+      await prisma.readingRecord.update({
+        where: { id: readingRecord.id },
+        data: { bookImage },
+      });
+
+      await prisma.readingRecord.create({
+        data: {
+          title: 'test title2',
+          learnedContent: 'test learned content2',
+          impression: 'test impression2',
+          userId: user2.id,
+        },
       });
     });
 
@@ -93,6 +106,7 @@ describe('ReadingRecordsController (e2e)', () => {
         expect(body[0].title).toEqual('test title1');
         expect(body[0].learnedContent).toEqual('test learned content1');
         expect(body[0].impression).toEqual('test impression1');
+        expect(body[0].bookImage).toMatch(/base64/);
       });
     });
   });
@@ -108,6 +122,14 @@ describe('ReadingRecordsController (e2e)', () => {
           impression: 'test impression1',
           userId: user1.id,
         },
+      });
+      const bookImage = await googleCloudService.uploadToStorage(
+        'https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0209/9784297100209.jpg',
+        `book_image/${readingRecord.id}`,
+      );
+      await prisma.readingRecord.update({
+        where: { id: readingRecord.id },
+        data: { bookImage },
       });
     });
 
@@ -138,6 +160,7 @@ describe('ReadingRecordsController (e2e)', () => {
           expect(body.title).toEqual('test title1');
           expect(body.learnedContent).toEqual('test learned content1');
           expect(body.impression).toEqual('test impression1');
+          expect(body.bookImage).toMatch(/base64/);
         });
       });
 
@@ -200,6 +223,41 @@ describe('ReadingRecordsController (e2e)', () => {
         where: { title: 'test title1', userId: user1.id },
       });
       expect(!!createdReadingRecord).toBeTruthy();
+    });
+
+    describe('画像の入力がある場合', () => {
+      it('todoが作成できること', async () => {
+        const res = await request(app.getHttpServer())
+          .post('/auth/signIn')
+          .send({
+            email: user1.email,
+            password: 'Passwor1',
+          });
+        const cookie = res.get('Set-Cookie') ?? '';
+        if (cookie === '') throw new Error();
+
+        const { body } = await request(app.getHttpServer())
+          .post('/readingRecords')
+          .send({
+            title: 'test title1',
+            learnedContent: 'test learned content1',
+            impression: 'test impression1',
+            bookImage:
+              'https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0209/9784297100209.jpg',
+          })
+          .set('Cookie', cookie[0])
+          .expect(201);
+        const createdReadingRecord = await prisma.readingRecord.findFirst({
+          where: { title: 'test title1', userId: user1.id },
+        });
+        expect(!!createdReadingRecord).toBeTruthy();
+        expect(body.title).toEqual('test title1');
+        expect(body.learnedContent).toEqual('test learned content1');
+        expect(body.impression).toEqual('test impression1');
+        expect(createdReadingRecord?.bookImage).toEqual(
+          `book_image/${createdReadingRecord?.id}.jpg`,
+        );
+      });
     });
   });
 
